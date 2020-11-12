@@ -10,10 +10,21 @@
   "dependencies": {
     "expo": "~39.0.2",
     "expo-status-bar": "~1.0.2",
+    "mobx": "^6.0.3",
+    "mobx-persist": "^0.4.1",
+    "mobx-react": "^7.0.4",
+    "mobx-react-form": "^2.0.9",
+    "mobx-react-lite": "^3.1.5",
     "react": "16.13.1",
     "react-dom": "16.13.1",
+    "react-icons": "^3.11.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-39.0.4.tar.gz",
-    "react-native-web": "~0.13.12"
+    "react-native-easy-grid": "^0.2.2",
+    "react-native-web": "~0.13.12",
+    "react-svg-star-rating": "^1.1.5",
+    "sweetalert2": "^10.9.1",
+    "valid-url": "^1.0.9",
+    "validatorjs": "^3.20.0"
   },
   "devDependencies": {
     "@babel/core": "~7.9.0",
