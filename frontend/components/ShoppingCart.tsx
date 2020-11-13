@@ -82,6 +82,7 @@ const styles = StyleSheet.create({
 		backgroundColor: '#d4bbed',
 		justifyContent: 'center',
 		alignItems: 'center',
+		marginBottom: Constants.statusBarHeight,
 	},
 	cartExit: {
 		position: 'absolute',
