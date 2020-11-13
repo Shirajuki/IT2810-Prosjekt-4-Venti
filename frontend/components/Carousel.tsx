@@ -29,7 +29,7 @@ function Slide(props: IProps) {
 
 export default function Carousel() {
 	return (
-		<FlatList data={slideList} style={styles.container}
+		<FlatList data={slideList} style={styles.container} contentContainerStyle={{alignItems: 'center', justifyContent: 'center' }}
 			renderItem={({ item }) => {
 				return <Slide id={item.id} image={item.image} title={item.title} subtitle={item.subtitle}/>;
 			}}
@@ -42,21 +42,24 @@ const styles = StyleSheet.create({
 	container: {
 		height: 50,
 		backgroundColor: '#fff',
-		margin: 0,
-		padding: 0,
+		marginVertical: 0,
+		marginLeft: 'auto',
+		marginRight: 'auto',
+		padding: 30,
+		width: '90%',
 		marginTop: Constants.statusBarHeight,
 		marginBottom: 20,
+		borderRadius: 20,
 	},
 	slide: {
-		height: windowHeight,
-		width: windowWidth,
+		height: '100%',
+		width: windowWidth/10 * 9,
 		justifyContent: "center",
 		alignItems: "center",
 	},
 	image : {
 		flex: 1,
-		width: '90%',
-		height: '90%',
+		width: '100%',
 		resizeMode: 'contain',
 	},
 });
