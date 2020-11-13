@@ -114,7 +114,7 @@ const App: FC = observer(() => {
 				nextClassName={'next'}
 				activeClassName={'active'} />
 			</View>
-			<ItemDisplay setModal={itemModal} itemList={CTX.fetchStore.products} data-cy="item-display" />
+			<ItemDisplay setModal={itemModal} itemList={CTX.fetchStore.products} />
 			<View style={{ height: 100, width: '100%', alignItems: 'center'}}>
 				<View style={{ width: '90%', backgroundColor: '#fff', borderRadius: 10, padding: 10, marginHorizontal: 'auto' }}>
 					<Text style={styles.splashText2}>Team7</Text>

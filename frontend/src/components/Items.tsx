@@ -99,7 +99,7 @@ const Items = observer((props: IProps) => {
 						</div>
 					</div>
 					<div>
-						<ImBin data-cy="remove-button" onClick={() => CTX.sessionStore.removeCart(Number(props.id))}/>
+						<ImBin onClick={() => CTX.sessionStore.removeCart(Number(props.id))}/>
 						<p className="pris">{props.price}</p>
 					</div>
 				</div>
@@ -113,10 +113,10 @@ const Items = observer((props: IProps) => {
 						<img src={props.img} alt={`${props.name}`}/>
 						<StarRating size={15} initialRating={stars} isReadOnly={true} isHalfRating={true}/>
 					</div>
-					<p className="itemName" data-cy="item-name">{props.name}</p>
+					<p className="itemName" >{props.name}</p>
 					<p className="itemDescription">{props.description}</p>
 					<div>
-						<p className="pris" data-cy="item-price">{props.price}</p>
+						<p className="pris" >{props.price}</p>
 					</div>
 				</div>
 			</>
