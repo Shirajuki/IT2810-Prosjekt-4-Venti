@@ -282,7 +282,6 @@ const Filter = (props: IProps2) => {
 		},
 		searchFilter: {
 			flexDirection: 'row',
-			float: 'right',
 			width: '30%',
 			height: '100%',
 			backgroundColor: '#fff',
@@ -290,7 +289,7 @@ const Filter = (props: IProps2) => {
 			margin: 5,
 			padding: 5,
 			alignItems: 'center',
-			justifyContent: 'center',
+			justifyContent: 'flex-end',
 		},
 		searchSort: {
 			width: '40%',
