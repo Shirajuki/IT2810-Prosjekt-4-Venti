@@ -1,12 +1,16 @@
-import React, { useState } from "react";
+import React, { FC, useContext, useState } from "react";
 import { StatusBar } from 'expo-status-bar';
 import { Dimensions, TouchableOpacity, Image, StyleSheet, Text, TextInput, View, ScrollView } from 'react-native';
 import Constants from 'expo-constants';
-import Carousel, {MemoizedCarousel} from './components/Carousel';
-import ItemDisplay, {MemoizedItemDisplay} from './components/ItemDisplay';
-import ShoppingCart from './components/ShoppingCart';
-import Search from './components/Search';
+import Carousel, {MemoizedCarousel} from './src/components/Carousel';
+import ShoppingCart from './src/components/ShoppingCart';
+import ReactPaginate from 'react-paginate';
+import Search from './src/components/Search';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { observer } from "mobx-react-lite"
+import { RootStoreContext } from "./src/stores/root-store";
+import ItemDisplay from "./src/components/ItemDisplay";
+import Product from "./src/models/product";
 
 const { width: windowWidth, height: windowHeight } = Dimensions.get("window");
 const assets = {
@@ -68,9 +72,17 @@ const Splash = (props: IProps) => {
 	);
 }
 // #APP
-const App = () => {
+const App: FC = observer(() => {
+	const CTX = useContext(RootStoreContext);
 	const [visible, setVisible] = useState(false);
 	const [searched, setSearched] = useState(false);
+	const [modal, setModal] = useState({
+		id: "none",
+		product: null,
+	});
+	const itemModal = (id: string, product: Product = null) => {
+		setModal({ id: id, product: product });
+	};
 	
 	return (
 	<View style={styles.container}>
@@ -87,17 +99,34 @@ const App = () => {
 			<View style={{ height: 400, width: '100%'}}>
 				<MemoizedCarousel />
 			</View>
+			<View>
+			<ReactPaginate  previousLabel={'previous'}
+										nextLabel={'next'}
+										breakLabel={'...'}
+										breakClassName={'break-me'}
+										pageCount={CTX.fetchStore.pageCount}
+										forcePage={CTX.fetchStore.currentPage}
+										marginPagesDisplayed={1}
+										pageRangeDisplayed={3}
+										onPageChange={({selected}) => CTX.fetchStore.setCurrentPage(selected)}
+										containerClassName={'pagination'}
+										nextClassName={'next'}
+										activeClassName={'active'} />
+			</View>
+			<ItemDisplay setModal={itemModal} itemList={CTX.fetchStore.products} data-cy="item-display" />
 			<View style={{ height: 100, width: '100%'}}>
 				<View style={{ width: '90%', backgroundColor: '#fff', borderRadius: 10, padding: 10, marginHorizontal: 'auto' }}>
 					<Text style={styles.splashText2}>Team7</Text>
 				</View>
 			</View>
+			
 		</ScrollView>
 		<ShoppingCart visible={visible} setVisible={setVisible}/>
-		<Search searched={searched} setSearched={setSearched}/>
+		{/*<Search searched={searched} setSearched={setSearched}/>*/}
 	</View>
 	);
-}
+})
+
 export default App;
 const styles = StyleSheet.create({
 	splashText: {

@@ -1,40 +1,61 @@
 import React, { useState, useCallback, useEffect, useRef } from "react";
 import { FlatList, Dimensions, Image, StyleSheet, Text, View } from 'react-native';
+import PaginationDot from 'react-native-animated-pagination-dot'
 import Constants from 'expo-constants';
+import Product from "../models/product";
+
 
 const { width: windowWidth, height: windowHeight } = Dimensions.get("window");
-const slideList = Array.from({ length: 30 }).map((_, i) => {
-	return {
-		id: i,
-		image: `https://picsum.photos/1440/2842?random=${i}`,
-		title: `This is the title! ${i + 1}`,
-		subtitle: `This is the subtitle ${i + 1}!`,
-	};
-});
+
 interface IProps {
-	id: number;
+	id: string;
 	image: string;
 	title: string;
 	subtitle: string;
 }
 function Slide(props: IProps) {
 	return (
+		
 		<View style={styles.slide}>
-			<Image source={{ uri: props.image }} style={styles.image}/>
+			<img src={props.image}/>
 			<Text style={{ fontSize: 24 }}>{props.title}</Text>
 			<Text style={{ fontSize: 18 }}>{props.subtitle}</Text>
 		</View>
+		
 	);
 }
 
 export default function Carousel() {
+
+	const [loading, setLoading] = useState(false);
+	const [products, setProducts] = useState<Product[]>([]);
+
+	useEffect(() => {
+		const getAPI = async () => {
+		  const response = await fetch("http://localhost:8080/");
+		  const data = await response.json();
+	
+		  try {
+			console.log(data);
+			setLoading(false);
+			setProducts(data);
+		  } catch (error) {
+			console.log(error);
+		  }
+		};
+		getAPI();
+	  }, []);
 	return (
-		<FlatList data={slideList} style={styles.container} contentContainerStyle={{alignItems: 'center', justifyContent: 'center' }}
+		
+		<FlatList data={products} style={styles.container} contentContainerStyle={{alignItems: 'center', justifyContent: 'center' }}
 			renderItem={({ item }) => {
-				return <Slide id={item.id} image={item.image} title={item.title} subtitle={item.subtitle}/>;
+				return <Slide id={item.id} image={item.image_link} title={item.name} subtitle={item.description}/>;
 			}}
+			
 			pagingEnabled horizontal showsHorizontalScrollIndicator 
 		/>
+		
+               
 	);
 };
 export const MemoizedCarousel = React.memo(Carousel);

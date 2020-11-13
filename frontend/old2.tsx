@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { StatusBar } from 'expo-status-bar';
 import { Dimensions, Image, StyleSheet, Text, TextInput, View, ScrollView } from 'react-native';
 import Constants from 'expo-constants';
-import Carousel, {MemoizedCarousel} from './components/Carousel';
-import ItemDisplay, {MemoizedItemDisplay} from './components/ItemDisplay';
+import Carousel, {MemoizedCarousel} from './src/components/Carousel';
+import ItemDisplay from './src/components/ItemDisplay';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const { width: windowWidth, height: windowHeight } = Dimensions.get("window");

@@ -12,17 +12,27 @@
     "expo": "~39.0.2",
     "expo-asset": "~8.2.0",
     "expo-status-bar": "~1.0.2",
+    "link": "^0.1.5",
+    "mobx": "^6.0.4",
+    "mobx-react-lite": "^3.1.6",
     "react": "16.13.1",
     "react-dom": "16.13.1",
+    "react-icons": "^3.11.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-39.0.4.tar.gz",
+    "react-native-animated-pagination-dot": "^0.1.8",
+    "react-native-pagination": "^1.5.5",
     "react-native-vector-icons": "^7.1.0",
-    "react-native-web": "~0.13.12"
+    "react-native-web": "~0.13.12",
+    "react-paginate": "^6.5.0",
+    "react-svg-star-rating": "^1.1.5",
+    "sweetalert2": "^10.10.0"
   },
   "devDependencies": {
     "@babel/core": "~7.9.0",
     "@types/react": "~16.9.35",
     "@types/react-dom": "~16.9.8",
     "@types/react-native": "~0.63.2",
+    "@types/react-paginate": "^6.2.1",
     "typescript": "~3.9.5"
   },
   "private": true

@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { StatusBar } from 'expo-status-bar';
 import { Dimensions, Image, StyleSheet, Text, TextInput, View, ScrollView } from 'react-native';
 import Constants from 'expo-constants';
-import Carousel, {MemoizedCarousel} from './components/Carousel';
-import ItemDisplay, {MemoizedItemDisplay} from './components/ItemDisplay';
+import Carousel, {MemoizedCarousel} from './src/components/Carousel';
+import ItemDisplay from './src/components/ItemDisplay';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const { width: windowWidth, height: windowHeight } = Dimensions.get("window");
@@ -44,10 +44,7 @@ const Splash = () => {
 	return (
 		<View style={styles.splash}>
 			<Image source={assets.eye} style={styles.eye} />
-			<View style={styles.splashDiv}>
-				<Text style={styles.splashText}>A wonderful serenity has taken</Text>
-				<Text style={styles.splashText2}>possession of my entire soul.</Text>
-			</View>
+			
 		</View>
 	);
 }
@@ -72,7 +69,7 @@ export default function App() {
 				  onChangeText={text => onChangeText(text)} value={value}
 				/>
 			</View>
-			<MemoizedItemDisplay />
+
 			<Footer />
 			<View style={styles.split}></View>
 			<StatusBar style="auto" />
@@ -134,16 +131,6 @@ const styles = StyleSheet.create({
 		backgroundColor: 'pink',
 		marginBottom: 10,
 		height: windowHeight-60,
-	},
-	splashDiv: {
-		position: 'absolute',
-		top: '30%',
-		left: '50%',
-		width: '90%',
-		transform: [
-		{translateX: '-50%'},
-		{translateY: '-50%'},
-		],
 	},
 	splashText: {
 		fontSize: 32,
