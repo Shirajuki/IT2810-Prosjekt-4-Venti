@@ -1,5 +1,5 @@
 import React, { ReactNode, useContext } from "react";
-import { FlatList, Dimensions, Image, StyleSheet, Text, View } from 'react-native';
+import { FlatList, Dimensions, Image, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import StarRating from 'react-svg-star-rating'
 import { ImBin } from "react-icons/im";
 import { RootStoreContext } from "../stores/root-store";
@@ -29,9 +29,9 @@ const Items = observer((props: IProps) => {
 	switch (props.type) {
 		case "carousel":
 		return (
-			<View style={styles.items} onClick={props.onClick}>
+			<TouchableOpacity style={styles.items} onPress={() => props.onClick}>
 				<View style={styles.imgDiv}>
-					<Image source={props.img} alt={`${product.name}`}/>
+					<Image source={{uri: props.img}} />
 					{Number(stars)*2 === 0 ? starElements[Number(stars)*2] : null}
 					{Number(stars)*2 === 1 ? starElements[Number(stars)*2] : null}
 					{Number(stars)*2 === 2 ? starElements[Number(stars)*2] : null}
@@ -47,13 +47,13 @@ const Items = observer((props: IProps) => {
 				<Text style={styles.itemName}>{props.name}</Text>
 				<Text style={styles.pris}>{props.price}</Text>
 				<Text style={styles.quickView}>Quick View</Text>
-			</View>
+			</TouchableOpacity>
 		);
 		case "modal":
 		return (
-			<View style={styles.items-modal} onClick={props.onClick}>
+			<TouchableOpacity style={styles.items-modal} onPress={() => props.onClick}>
 				<View style={styles.imgDiv}>
-					<Image style={styles.modal-image} source={props.img} alt={`${props.name}`}/>
+					<Image style={styles.modal-image} source={{uri: props.img}} alt={`${props.name}`}/>
 				</View>
 				<View style={styles.info-container}>
 					<Text style={styles.itemName}>{props.name}</Text>
@@ -70,17 +70,17 @@ const Items = observer((props: IProps) => {
 					{Number(stars)*2 === 9 ? starElements[Number(stars)*2] : null}
 					{Number(stars)*2 === 10 ? starElements[Number(stars)*2] : null}
 					<TouchableOpacity style={styles.button} onPress={() =>
-						CTX.sessionStore.addCart(+props.id);
+						CTX.sessionStore.addCart(+props.id)
 						Swal.fire(
 							'Added to cart!',
 							'The producr was added to cart!',
 							'success');
-					}}>
+					}>
 						<Text>Add to cart</Text>
 					</TouchableOpacity>
 					<Text style={styles.itemDescription}>{props.description}</Text>
 				</View>
-			</View>
+			</TouchableOpacity>
 		);
 		case "cart":
 		return (
