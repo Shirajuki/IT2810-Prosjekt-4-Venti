@@ -87,7 +87,7 @@ const App = () => {
 			<View style={{ height: 400, width: '100%'}}>
 				<MemoizedCarousel />
 			</View>
-			<View style={{ height: 100, width: '100%'}}>
+			<View style={{ height: 100, width: '100%', alignItems: 'center'}}>
 				<View style={{ width: '90%', backgroundColor: '#fff', borderRadius: 10, padding: 10, marginHorizontal: 'auto' }}>
 					<Text style={styles.splashText2}>Team7</Text>
 				</View>
@@ -139,6 +139,7 @@ const styles = StyleSheet.create({
 		margin: 0,
 		padding: 0,
 		marginTop: Constants.statusBarHeight,
+		marginBottom: Constants.status,
 		overflow: 'hidden',
 	},
 });

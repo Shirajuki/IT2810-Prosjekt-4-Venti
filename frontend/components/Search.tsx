@@ -127,7 +127,6 @@ const DropDown = (props: IProps4) => {
 		backgroundColor: '#fff',
 		margin: 0,
 		padding: 0,
-		marginTop: Constants.statusBarHeight,
 		marginBottom: 20,
 		zIndex: 10,
 	}
@@ -175,9 +174,8 @@ const FilterWindow = (props: IFilterWindow) => {
 		backgroundColor: '#fff',
 		margin: 0,
 		padding: 0,
-		marginTop: Constants.statusBarHeight,
 		marginBottom: 20,
-		zIndex: 10,
+		zIndex: 40,
 	}
 	const type = {
 		"foundation": "Foundation",
@@ -255,7 +253,7 @@ const FilterWindow = (props: IFilterWindow) => {
 				<TouchableOpacity onPress={closeWindow} style={styles.windowExit}>
 					<Icon name="close" size={28} color="#000" />
 				</TouchableOpacity>
-				<View style={{width: '100%', height: '10%', flexDirection: 'row'}}>
+				<View style={{width: '100%', height: '10%', flexDirection: 'row', marginBottom: Constants.statusBarHeight}}>
 					<TouchableOpacity style={styles.btnReset} onPress={closeWindow}>
 						<Text style={{color: '#fff',fontWeight: '600',}}>RESET</Text>
 					</TouchableOpacity>
@@ -289,7 +287,7 @@ const Filter = (props: IProps2) => {
 			margin: 5,
 			padding: 5,
 			alignItems: 'center',
-			justifyContent: 'flex-end',
+			justifyContent: 'center',
 		},
 		searchSort: {
 			width: '40%',
@@ -390,7 +388,6 @@ export default function Search(props: IProps) {
 		backgroundColor: '#fff',
 		margin: 0,
 		padding: 0,
-		marginTop: Constants.statusBarHeight,
 		marginBottom: 20,
 		zIndex: 10,
 	}
@@ -492,7 +489,6 @@ const styles = StyleSheet.create({
 		backgroundColor: '#fff',
 		margin: 0,
 		padding: 0,
-		marginTop: Constants.statusBarHeight,
 		marginBottom: 20,
 		zIndex: 10,
 	},

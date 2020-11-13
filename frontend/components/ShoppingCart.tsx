@@ -5,26 +5,6 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const { width: windowWidth, height: windowHeight } = Dimensions.get("window");
 
-/*
-*28 <div className={`shoppingCart ${ CTX.sessionStore.cartActive ? "active" : "inactive"}`}>↵
-*29 ·   <div className="cartTitle">↵
-*30 ·   ·   <h2><TiShoppingCart/> Handlekurv</h2>↵
-*31 ·   ·   <ImCross className="cartExit" onClick={() => {↵
-*32 ·   ·   ·   CTX.sessionStore.setCartActive(false);↵
-*33 ·   ·   ·   CTX.sessionStore.updateCart();↵
-*34 ·   ·   }}>X</ImCross>↵
-*35 ·   </div>↵
-*36 ·   <div className="cartItems">↵
-*37 ·   ·   { CTX.sessionStore.cartProduct.map((item: Product) => {↵
-*38 ·   ·   ·   return (<Items id={item.id} img={item.image_link} name={item.name} descriptio→
-*39 ·   ·   })}↵
-*40 ·   </div>↵
-*41 ·   <div className="cartInfo">↵
-*42 ·   ·   <p>Total: {CTX.sessionStore.cartTotalPrice}$</p>↵
-*43 ·   ·   <button onClick={() => clearCart()} data-cy="purchase-button">BUYBUYBUY</button>↵
-*44 ·   </div>↵
-*45 </div>
- */
 const colors = {
 	themeColor: 'darkslateblue',
 	darkColor: '#8364a9',
@@ -55,7 +35,6 @@ export default function ShoppingCart(props: IProps) {
 		backgroundColor: '#fff',
 		margin: 0,
 		padding: 0,
-		marginTop: Constants.statusBarHeight,
 		marginBottom: 20,
 		zIndex: 10,
 	}
