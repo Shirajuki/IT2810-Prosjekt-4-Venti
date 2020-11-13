@@ -1,4 +1,5 @@
 import React, { ReactNode, useContext } from "react";
+import { FlatList, Dimensions, Image, StyleSheet, Text, View } from 'react-native';
 import StarRating from 'react-svg-star-rating'
 import { ImBin } from "react-icons/im";
 import { RootStoreContext } from "../stores/root-store";
@@ -28,98 +29,96 @@ const Items = observer((props: IProps) => {
 	switch (props.type) {
 		case "carousel":
 		return (
-			<>
-				<div className="items" onClick={props.onClick}>
-					<div className="imgDiv">
-						<img src={props.img} alt={`${product.name}`}/>
-						{Number(stars)*2 === 0 ? starElements[Number(stars)*2] : null}
-						{Number(stars)*2 === 1 ? starElements[Number(stars)*2] : null}
-						{Number(stars)*2 === 2 ? starElements[Number(stars)*2] : null}
-						{Number(stars)*2 === 3 ? starElements[Number(stars)*2] : null}
-						{Number(stars)*2 === 4 ? starElements[Number(stars)*2] : null}
-						{Number(stars)*2 === 5 ? starElements[Number(stars)*2] : null}
-						{Number(stars)*2 === 6 ? starElements[Number(stars)*2] : null}
-						{Number(stars)*2 === 7 ? starElements[Number(stars)*2] : null}
-						{Number(stars)*2 === 8 ? starElements[Number(stars)*2] : null}
-						{Number(stars)*2 === 9 ? starElements[Number(stars)*2] : null}
-						{Number(stars)*2 === 10 ? starElements[Number(stars)*2] : null}
-					</div>
-					<p className="itemName">{props.name}</p>
-					<p className="pris">{props.price}</p>
-					<p className="quickView">Quick View</p>
-				</div>
-			</>
+			<View style={styles.items} onClick={props.onClick}>
+				<View style={styles.imgDiv}>
+					<Image source={props.img} alt={`${product.name}`}/>
+					{Number(stars)*2 === 0 ? starElements[Number(stars)*2] : null}
+					{Number(stars)*2 === 1 ? starElements[Number(stars)*2] : null}
+					{Number(stars)*2 === 2 ? starElements[Number(stars)*2] : null}
+					{Number(stars)*2 === 3 ? starElements[Number(stars)*2] : null}
+					{Number(stars)*2 === 4 ? starElements[Number(stars)*2] : null}
+					{Number(stars)*2 === 5 ? starElements[Number(stars)*2] : null}
+					{Number(stars)*2 === 6 ? starElements[Number(stars)*2] : null}
+					{Number(stars)*2 === 7 ? starElements[Number(stars)*2] : null}
+					{Number(stars)*2 === 8 ? starElements[Number(stars)*2] : null}
+					{Number(stars)*2 === 9 ? starElements[Number(stars)*2] : null}
+					{Number(stars)*2 === 10 ? starElements[Number(stars)*2] : null}
+				</View>
+				<Text style={styles.itemName}>{props.name}</Text>
+				<Text style={styles.pris}>{props.price}</Text>
+				<Text style={styles.quickView}>Quick View</Text>
+			</View>
 		);
 		case "modal":
 		return (
-			<>
-				<div className="items-modal" onClick={props.onClick}>
-					<div className="imgDiv">
-						<img className="modal-image" src={props.img} alt={`${props.name}`}/>
-					</div>
-					<div className="info-container">
-						<p className="itemName">{props.name}</p>
-						<p className="pris">{props.price}</p>
-						{Number(stars)*2 === 0 ? starElements[Number(stars)*2] : null}
-						{Number(stars)*2 === 1 ? starElements[Number(stars)*2] : null}
-						{Number(stars)*2 === 2 ? starElements[Number(stars)*2] : null}
-						{Number(stars)*2 === 3 ? starElements[Number(stars)*2] : null}
-						{Number(stars)*2 === 4 ? starElements[Number(stars)*2] : null}
-						{Number(stars)*2 === 5 ? starElements[Number(stars)*2] : null}
-						{Number(stars)*2 === 6 ? starElements[Number(stars)*2] : null}
-						{Number(stars)*2 === 7 ? starElements[Number(stars)*2] : null}
-						{Number(stars)*2 === 8 ? starElements[Number(stars)*2] : null}
-						{Number(stars)*2 === 9 ? starElements[Number(stars)*2] : null}
-						{Number(stars)*2 === 10 ? starElements[Number(stars)*2] : null}
-						<button onClick={() => {
-							CTX.sessionStore.addCart(+props.id);
-							Swal.fire(
-								'Added to cart!',
-								'The producr was added to cart!',
-								'success');
-						}}>Add to cart</button>
-						<p className="itemDescription">{props.description}</p>
-					</div>
-				</div>
-			</>
+			<View style={styles.items-modal} onClick={props.onClick}>
+				<View style={styles.imgDiv}>
+					<Image style={styles.modal-image} source={props.img} alt={`${props.name}`}/>
+				</View>
+				<View style={styles.info-container}>
+					<Text style={styles.itemName}>{props.name}</Text>
+					<Text style={styles.pris}>{props.price}</Text>
+					{Number(stars)*2 === 0 ? starElements[Number(stars)*2] : null}
+					{Number(stars)*2 === 1 ? starElements[Number(stars)*2] : null}
+					{Number(stars)*2 === 2 ? starElements[Number(stars)*2] : null}
+					{Number(stars)*2 === 3 ? starElements[Number(stars)*2] : null}
+					{Number(stars)*2 === 4 ? starElements[Number(stars)*2] : null}
+					{Number(stars)*2 === 5 ? starElements[Number(stars)*2] : null}
+					{Number(stars)*2 === 6 ? starElements[Number(stars)*2] : null}
+					{Number(stars)*2 === 7 ? starElements[Number(stars)*2] : null}
+					{Number(stars)*2 === 8 ? starElements[Number(stars)*2] : null}
+					{Number(stars)*2 === 9 ? starElements[Number(stars)*2] : null}
+					{Number(stars)*2 === 10 ? starElements[Number(stars)*2] : null}
+					<TouchableOpacity style={styles.button} onPress={() =>
+						CTX.sessionStore.addCart(+props.id);
+						Swal.fire(
+							'Added to cart!',
+							'The producr was added to cart!',
+							'success');
+					}}>
+						<Text>Add to cart</Text>
+					</TouchableOpacity>
+					<Text style={styles.itemDescription}>{props.description}</Text>
+				</View>
+			</View>
 		);
 		case "cart":
 		return (
-			<>
-				<div className="item">
-					<div className="imgDiv">
-						<img src={props.img} alt={props.name}/>
-					</div>
-					<div className="info">
-						<p className="itemName">{props.name}</p>
-						<div className="itemAdd">
-							<button onClick={() => CTX.sessionStore.editCart(Number(props.id), false)}>-</button>
-							<span>{CTX.sessionStore.productCount(Number(props.id))}</span>
-							<button onClick={() => CTX.sessionStore.editCart(Number(props.id), true)}>+</button>
-						</div>
-					</div>
-					<div>
-						<ImBin onClick={() => CTX.sessionStore.removeCart(Number(props.id))}/>
-						<p className="pris">{props.price}</p>
-					</div>
-				</div>
-			</>
+			<View style={styles.item}>
+				<View style={styles.imgDiv}>
+					<Image src={props.img} alt={props.name}/>
+				</View>
+				<View style={styles.info}>
+					<Text style={styles.itemName}>{props.name}</Text>
+					<View style={styles.itemAdd}>
+						<TouchableOpacity style={styles.button} onPress={() => CTX.sessionStore.editCart(Number(props.id), false)}>
+							<Text>-</Text>
+						</TouchableOpacity>
+						<Text>{CTX.sessionStore.productCount(Number(props.id))}</Text>
+						<TouchableOpacity style={styles.button} onPress={() => CTX.sessionStore.editCart(Number(props.id), true)}>
+							<Text>+</Text>
+						</TouchableOpacity>
+					</View>
+				</View>
+				<View>
+					<ImBin data-cy="remove-button" onClick={() => CTX.sessionStore.removeCart(Number(props.id))}/>
+					<Text style={styles.pris}>{props.price}</Text>
+				</View>
+			</View>
 		);
 		default:
 		return (
-			<>
-				<div className="items" onClick={props.onClick}>
-					<div className="imgDiv">
-						<img src={props.img} alt={`${props.name}`}/>
-						<StarRating size={15} initialRating={stars} isReadOnly={true} isHalfRating={true}/>
-					</div>
-					<p className="itemName" >{props.name}</p>
-					<p className="itemDescription">{props.description}</p>
-					<div>
-						<p className="pris" >{props.price}</p>
-					</div>
-				</div>
-			</>
+			<View style={styles.items} onClick={props.onClick}>
+				<View style={styles.imgDiv}>
+					<Image src={props.img} alt={`${props.name}`}/>
+					<StarRating size={15} initialRating={stars} isReadOnly={true} isHalfRating={true}/>
+				</View>
+				<Text style={styles.itemName} data-cy="item-name">{props.name}</Text>
+				<Text style={styles.itemDescription}>{props.description}</Text>
+				<View>
+					<Text style={styles.pris} data-cy="item-price">{props.price}</Text>
+				</View>
+			</View>
 		);
 	}
 })
