@@ -77,7 +77,7 @@ const App = () => {
 		<StatusBar backgroundColor={'#fff'}/>
 		<Splash setVisible={setVisible} setSearched={setSearched}/>
 		<ScrollView style={styles.scrollView}>
-			<View>
+			<View style={styles.front}>
 				<Image source={assets.eye} style={styles.eye} />
 				<View style={{ flex: 1, width: '100%', top: 70, left: -60, justifyContent: 'center', alignItems: 'center', position: 'absolute'}}>
 					<Text style={styles.splashText}>A wonderful serenity has taken</Text>
@@ -117,10 +117,15 @@ const styles = StyleSheet.create({
 	navCart: {
 
 	},
+	front: {
+        alignItems: 'center',
+	},
 	eye: {
 		flex: 1,
 		height: 210,
 		resizeMode: 'contain',
+		justifyContent: 'center',
+        alignItems: 'center',
 		transform: [
 			{translateX: 40},
 		],
