@@ -7,10 +7,11 @@ import ShoppingCart from './src/components/ShoppingCart';
 import ReactPaginate from 'react-paginate';
 import Search from './src/components/Search';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { observer } from "mobx-react-lite"
-import { RootStoreContext } from "./src/stores/root-store";
 import ItemDisplay from "./src/components/ItemDisplay";
 import Product from "./src/models/product";
+import { observer } from "mobx-react-lite"
+import { RootStoreContext } from "./src/stores/root-store";
+import RootStore from "./src/stores/root-store";
 
 const { width: windowWidth, height: windowHeight } = Dimensions.get("window");
 const assets = {
@@ -89,7 +90,7 @@ const App: FC = observer(() => {
 		<StatusBar backgroundColor={'#fff'}/>
 		<Splash setVisible={setVisible} setSearched={setSearched}/>
 		<ScrollView style={styles.scrollView}>
-			<View>
+			<View style={styles.front}>
 				<Image source={assets.eye} style={styles.eye} />
 				<View style={{ flex: 1, width: '100%', top: 70, left: -60, justifyContent: 'center', alignItems: 'center', position: 'absolute'}}>
 					<Text style={styles.splashText}>A wonderful serenity has taken</Text>
@@ -101,20 +102,20 @@ const App: FC = observer(() => {
 			</View>
 			<View>
 			<ReactPaginate  previousLabel={'previous'}
-										nextLabel={'next'}
-										breakLabel={'...'}
-										breakClassName={'break-me'}
-										pageCount={CTX.fetchStore.pageCount}
-										forcePage={CTX.fetchStore.currentPage}
-										marginPagesDisplayed={1}
-										pageRangeDisplayed={3}
-										onPageChange={({selected}) => CTX.fetchStore.setCurrentPage(selected)}
-										containerClassName={'pagination'}
-										nextClassName={'next'}
-										activeClassName={'active'} />
+				nextLabel={'next'}
+				breakLabel={'...'}
+				breakClassName={'break-me'}
+				pageCount={CTX.fetchStore.pageCount}
+				forcePage={CTX.fetchStore.currentPage}
+				marginPagesDisplayed={1}
+				pageRangeDisplayed={3}
+				onPageChange={({selected}) => CTX.fetchStore.setCurrentPage(selected)}
+				containerClassName={'pagination'}
+				nextClassName={'next'}
+				activeClassName={'active'} />
 			</View>
 			<ItemDisplay setModal={itemModal} itemList={CTX.fetchStore.products} data-cy="item-display" />
-			<View style={{ height: 100, width: '100%'}}>
+			<View style={{ height: 100, width: '100%', alignItems: 'center'}}>
 				<View style={{ width: '90%', backgroundColor: '#fff', borderRadius: 10, padding: 10, marginHorizontal: 'auto' }}>
 					<Text style={styles.splashText2}>Team7</Text>
 				</View>
@@ -126,8 +127,16 @@ const App: FC = observer(() => {
 	</View>
 	);
 })
-
-export default App;
+const Index = observer(() => {
+	return(
+	<View>
+		<RootStore>
+			<App />
+		</RootStore>
+	</View>
+	);
+});
+export default Index;
 const styles = StyleSheet.create({
 	splashText: {
 		fontSize: 16,
@@ -146,10 +155,15 @@ const styles = StyleSheet.create({
 	navCart: {
 
 	},
+	front: {
+        alignItems: 'center',
+	},
 	eye: {
 		flex: 1,
 		height: 210,
 		resizeMode: 'contain',
+		justifyContent: 'center',
+        alignItems: 'center',
 		transform: [
 			{translateX: 40},
 		],
@@ -163,6 +177,7 @@ const styles = StyleSheet.create({
 		margin: 0,
 		padding: 0,
 		marginTop: Constants.statusBarHeight,
+		marginBottom: Constants.status,
 		overflow: 'hidden',
 	},
 });

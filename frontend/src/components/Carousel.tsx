@@ -54,8 +54,6 @@ export default function Carousel() {
 			
 			pagingEnabled horizontal showsHorizontalScrollIndicator 
 		/>
-		
-               
 	);
 };
 export const MemoizedCarousel = React.memo(Carousel);
