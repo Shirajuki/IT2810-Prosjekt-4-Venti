@@ -17,7 +17,7 @@ function Slide(props: IProps) {
 	return (
 		
 		<View style={styles.slide}>
-			<img src={props.image}/>
+			<Image source={require(props.image)}/>
 			<Text style={{ fontSize: 24 }}>{props.title}</Text>
 			<Text style={{ fontSize: 18 }}>{props.subtitle}</Text>
 		</View>
