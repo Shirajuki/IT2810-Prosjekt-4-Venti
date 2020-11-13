@@ -15,7 +15,6 @@ interface IProps {
 }
 function Slide(props: IProps) {
 	return (
-		
 		<View style={styles.slide}>
 			<Image source={{ uri: props.image}}/>
 			<Text style={{ fontSize: 24 }}>{props.title}</Text>
@@ -26,7 +25,6 @@ function Slide(props: IProps) {
 }
 
 export default function Carousel() {
-
 	const [loading, setLoading] = useState(false);
 	const [products, setProducts] = useState<Product[]>([]);
 
@@ -34,7 +32,6 @@ export default function Carousel() {
 		const getAPI = async () => {
 		  const response = await fetch("http://localhost:8080/");
 		  const data = await response.json();
-	
 		  try {
 			console.log(data);
 			setLoading(false);
@@ -49,10 +46,9 @@ export default function Carousel() {
 		
 		<FlatList data={products} style={styles.container} contentContainerStyle={{alignItems: 'center', justifyContent: 'center' }}
 			renderItem={({ item }) => {
-				return <Slide id={item.id} image={item.image_link} title={item.name} subtitle={item.description}/>;
+				return(<Slide id={item.id} image={item.image_link} title={item.name} subtitle={item.description}/>);
 			}}
-			
-			pagingEnabled horizontal showsHorizontalScrollIndicator 
+			pagingEnabled horizontal showsHorizontalScrollIndicator
 		/>
 	);
 };

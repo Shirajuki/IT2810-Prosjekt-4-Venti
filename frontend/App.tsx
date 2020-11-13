@@ -100,30 +100,31 @@ const App: FC = observer(() => {
 			<View style={{ height: 400, width: '100%'}}>
 				<MemoizedCarousel />
 			</View>
+			{/*
 			<View>
-			<ReactPaginate  previousLabel={'previous'}
-				nextLabel={'next'}
-				breakLabel={'...'}
-				breakClassName={'break-me'}
-				pageCount={CTX.fetchStore.pageCount}
-				forcePage={CTX.fetchStore.currentPage}
-				marginPagesDisplayed={1}
-				pageRangeDisplayed={3}
-				onPageChange={({selected}) => CTX.fetchStore.setCurrentPage(selected)}
-				containerClassName={'pagination'}
-				nextClassName={'next'}
-				activeClassName={'active'} />
+				<ReactPaginate  previousLabel={'previous'}
+					nextLabel={'next'}
+					breakLabel={'...'}
+					breakClassName={'break-me'}
+					pageCount={CTX.fetchStore.pageCount}
+					forcePage={CTX.fetchStore.currentPage}
+					marginPagesDisplayed={1}
+					pageRangeDisplayed={3}
+					onPageChange={({selected}) => CTX.fetchStore.setCurrentPage(selected)}
+					containerClassName={'pagination'}
+					nextClassName={'next'}
+					activeClassName={'active'} />
 			</View>
+			*/}
 			<ItemDisplay setModal={itemModal} itemList={CTX.fetchStore.products} />
 			<View style={{ height: 100, width: '100%', alignItems: 'center'}}>
 				<View style={{ width: '90%', backgroundColor: '#fff', borderRadius: 10, padding: 10, marginHorizontal: 'auto' }}>
 					<Text style={styles.splashText2}>Team7</Text>
 				</View>
 			</View>
-			
 		</ScrollView>
 		<ShoppingCart visible={visible} setVisible={setVisible}/>
-		{/*<Search searched={searched} setSearched={setSearched}/>*/}
+		<Search searched={searched} setSearched={setSearched}/>
 	</View>
 	);
 })

@@ -41,7 +41,7 @@ const sess = {
 }
 app.use(session(sess))
  
-app.use(cors({credentials: true, origin: "http://localhost:3000"}))
+app.use(cors({credentials: true, origin: "http://localhost:19006"}))
 app.use(express.urlencoded({ extended: false }));
 
 // Serves the server on port 8080 as default port

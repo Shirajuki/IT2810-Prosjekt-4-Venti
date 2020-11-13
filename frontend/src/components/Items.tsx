@@ -70,10 +70,10 @@ const Items = observer((props: IProps) => {
 					{Number(stars)*2 === 9 ? starElements[Number(stars)*2] : null}
 					{Number(stars)*2 === 10 ? starElements[Number(stars)*2] : null}
 					<TouchableOpacity  onPress={() => {
-						CTX.sessionStore.addCart(+props.id)
+						CTX.sessionStore.addCart(+props.id);
 						Swal.fire(
 							'Added to cart!',
-							'The producr was added to cart!',
+							'The product was added to cart!',
 							'success');
 						}
 					}>

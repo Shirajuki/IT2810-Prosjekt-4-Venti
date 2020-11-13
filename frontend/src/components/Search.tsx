@@ -53,7 +53,7 @@ const Checkbox = (props: IProps3) => {
 	return (
 		<View style={styles.checkbox}>
 			<TouchableOpacity style={{width: '100%', flexDirection: 'row', alignItems: 'center',}} onPress={() => setToggleCheckBox(!toggleCheckBox)}>
-				<CheckBox style={{marginHorizontal: 5}} disabled={false} value={toggleCheckBox}/>
+				<CheckBox style={{marginHorizontal: 5}} disabled={false} value={toggleCheckBox} onChange={() => setToggleCheckBox(!toggleCheckBox)}/>
 				<Text style={{ fontSize: 18 }}>{props.name}</Text>
 			</TouchableOpacity>
 		</View>
@@ -123,11 +123,10 @@ const DropDown = (props: IProps4) => {
 		top: '15%',
 		right: 0,
 		width: '100%',
-		height: 140,
+		height: 150,
 		backgroundColor: '#fff',
 		margin: 0,
 		padding: 0,
-		marginTop: Constants.statusBarHeight,
 		marginBottom: 20,
 		zIndex: 10,
 	}
@@ -175,9 +174,8 @@ const FilterWindow = (props: IFilterWindow) => {
 		backgroundColor: '#fff',
 		margin: 0,
 		padding: 0,
-		marginTop: Constants.statusBarHeight,
 		marginBottom: 20,
-		zIndex: 10,
+		zIndex: 40,
 	}
 	const type = {
 		"foundation": "Foundation",
@@ -237,7 +235,7 @@ const FilterWindow = (props: IFilterWindow) => {
 	// Strict mode error here v
 	return (
 		<Animated.View style={{ ...containerStyle, transform: [{translateX: anim}] }}>
-			<View style={{height: windowHeight,}}>
+			<View style={{height: windowHeight}}>
 				<ScrollView style={styles.windowItems}>
 					<Text style={styles.filterTitle}>Types</Text>
 					<FlatList data={types()} style={styles.list}
@@ -255,7 +253,7 @@ const FilterWindow = (props: IFilterWindow) => {
 				<TouchableOpacity onPress={closeWindow} style={styles.windowExit}>
 					<Icon name="close" size={28} color="#000" />
 				</TouchableOpacity>
-				<View style={{width: '100%', height: '10%', flexDirection: 'row'}}>
+				<View style={{width: '100%', height: '10%', flexDirection: 'row', marginBottom: Constants.statusBarHeight}}>
 					<TouchableOpacity style={styles.btnReset} onPress={closeWindow}>
 						<Text style={{color: '#fff',fontWeight: '600',}}>RESET</Text>
 					</TouchableOpacity>
@@ -282,7 +280,6 @@ const Filter = (props: IProps2) => {
 		},
 		searchFilter: {
 			flexDirection: 'row',
-			float: 'right',
 			width: '30%',
 			height: '100%',
 			backgroundColor: '#fff',
@@ -391,7 +388,6 @@ export default function Search(props: IProps) {
 		backgroundColor: '#fff',
 		margin: 0,
 		padding: 0,
-		marginTop: Constants.statusBarHeight,
 		marginBottom: 20,
 		zIndex: 10,
 	}
@@ -493,7 +489,6 @@ const styles = StyleSheet.create({
 		backgroundColor: '#fff',
 		margin: 0,
 		padding: 0,
-		marginTop: Constants.statusBarHeight,
 		marginBottom: 20,
 		zIndex: 10,
 	},
