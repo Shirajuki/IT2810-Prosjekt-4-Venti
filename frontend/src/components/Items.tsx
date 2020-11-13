@@ -29,8 +29,8 @@ const Items = observer((props: IProps) => {
 	switch (props.type) {
 		case "carousel":
 		return (
-			<TouchableOpacity style={styles.items} onPress={() => props.onClick}>
-				<View style={styles.imgDiv}>
+			<TouchableOpacity onPress={() => props.onClick}>
+				<View >
 					<Image source={{uri: props.img}} />
 					{Number(stars)*2 === 0 ? starElements[Number(stars)*2] : null}
 					{Number(stars)*2 === 1 ? starElements[Number(stars)*2] : null}
@@ -44,20 +44,20 @@ const Items = observer((props: IProps) => {
 					{Number(stars)*2 === 9 ? starElements[Number(stars)*2] : null}
 					{Number(stars)*2 === 10 ? starElements[Number(stars)*2] : null}
 				</View>
-				<Text style={styles.itemName}>{props.name}</Text>
-				<Text style={styles.pris}>{props.price}</Text>
-				<Text style={styles.quickView}>Quick View</Text>
+				<Text >{props.name}</Text>
+				<Text >{props.price}</Text>
+				<Text >Quick View</Text>
 			</TouchableOpacity>
 		);
 		case "modal":
 		return (
-			<TouchableOpacity style={styles.items-modal} onPress={() => props.onClick}>
-				<View style={styles.imgDiv}>
-					<Image style={styles.modal-image} source={{uri: props.img}} alt={`${props.name}`}/>
+			<TouchableOpacity  onPress={() => props.onClick}>
+				<View >
+					<Image  source={{uri: props.img}} />
 				</View>
-				<View style={styles.info-container}>
-					<Text style={styles.itemName}>{props.name}</Text>
-					<Text style={styles.pris}>{props.price}</Text>
+				<View >
+					<Text >{props.name}</Text>
+					<Text >{props.price}</Text>
 					{Number(stars)*2 === 0 ? starElements[Number(stars)*2] : null}
 					{Number(stars)*2 === 1 ? starElements[Number(stars)*2] : null}
 					{Number(stars)*2 === 2 ? starElements[Number(stars)*2] : null}
@@ -69,56 +69,57 @@ const Items = observer((props: IProps) => {
 					{Number(stars)*2 === 8 ? starElements[Number(stars)*2] : null}
 					{Number(stars)*2 === 9 ? starElements[Number(stars)*2] : null}
 					{Number(stars)*2 === 10 ? starElements[Number(stars)*2] : null}
-					<TouchableOpacity style={styles.button} onPress={() =>
+					<TouchableOpacity  onPress={() => {
 						CTX.sessionStore.addCart(+props.id)
 						Swal.fire(
 							'Added to cart!',
 							'The producr was added to cart!',
 							'success');
+						}
 					}>
 						<Text>Add to cart</Text>
 					</TouchableOpacity>
-					<Text style={styles.itemDescription}>{props.description}</Text>
+					<Text >{props.description}</Text>
 				</View>
 			</TouchableOpacity>
 		);
 		case "cart":
 		return (
-			<View style={styles.item}>
-				<View style={styles.imgDiv}>
-					<Image src={props.img} alt={props.name}/>
+			<View >
+				<View >
+					<Image source={{uri: props.img}}/>
 				</View>
-				<View style={styles.info}>
-					<Text style={styles.itemName}>{props.name}</Text>
-					<View style={styles.itemAdd}>
-						<TouchableOpacity style={styles.button} onPress={() => CTX.sessionStore.editCart(Number(props.id), false)}>
+				<View>
+					<Text >{props.name}</Text>
+					<View >
+						<TouchableOpacity  onPress={() => CTX.sessionStore.editCart(Number(props.id), false)}>
 							<Text>-</Text>
 						</TouchableOpacity>
 						<Text>{CTX.sessionStore.productCount(Number(props.id))}</Text>
-						<TouchableOpacity style={styles.button} onPress={() => CTX.sessionStore.editCart(Number(props.id), true)}>
+						<TouchableOpacity  onPress={() => CTX.sessionStore.editCart(Number(props.id), true)}>
 							<Text>+</Text>
 						</TouchableOpacity>
 					</View>
 				</View>
 				<View>
 					<ImBin data-cy="remove-button" onClick={() => CTX.sessionStore.removeCart(Number(props.id))}/>
-					<Text style={styles.pris}>{props.price}</Text>
+					<Text >{props.price}</Text>
 				</View>
 			</View>
 		);
 		default:
 		return (
-			<View style={styles.items} onClick={props.onClick}>
-				<View style={styles.imgDiv}>
-					<Image src={props.img} alt={`${props.name}`}/>
+			<TouchableOpacity onPress={props.onClick}>
+				<View>
+					<Image source={{uri: props.img}} />
 					<StarRating size={15} initialRating={stars} isReadOnly={true} isHalfRating={true}/>
 				</View>
-				<Text style={styles.itemName} data-cy="item-name">{props.name}</Text>
-				<Text style={styles.itemDescription}>{props.description}</Text>
+				<Text >{props.name}</Text>
+				<Text >{props.description}</Text>
 				<View>
-					<Text style={styles.pris} data-cy="item-price">{props.price}</Text>
+					<Text >{props.price}</Text>
 				</View>
-			</View>
+			</TouchableOpacity>
 		);
 	}
 })
