@@ -14,11 +14,11 @@ interface IProps {
 	subtitle: string;
 }
 function Slide(props: IProps) {
+	console.log(props.image);
 	return (
 		<View style={styles.slide}>
-			<Image source={{ uri: props.image}}/>
+			<Image source={{ uri: props.image}} style={styles.image}/>
 			<Text style={{ fontSize: 24 }}>{props.title}</Text>
-			<Text style={{ fontSize: 18 }}>{props.subtitle}</Text>
 		</View>
 		
 	);
