@@ -29,7 +29,7 @@ const SessionContext = () => {
 			}
 		},
 		addCart(productId: number) {
-			fetch('http://localhost:8080/editCart/'+productId,{
+			fetch('http://it2810-07.idi.ntnu.no:3000/editCart/'+productId,{
 				method: 'POST',
 				mode: 'cors',
 				credentials: 'include',
@@ -50,7 +50,7 @@ const SessionContext = () => {
 			this.setCart(JSON.stringify(nCart));
 		},
 		removeCart(productId: number) {
-			fetch('http://localhost:8080/removeCart/'+productId,{
+			fetch('http://it2810-07.idi.ntnu.no:3000/removeCart/'+productId,{
 				method: 'POST',
 				mode: 'cors',
 				credentials: 'include',
@@ -71,7 +71,7 @@ const SessionContext = () => {
 			}
 		},
 		deleteCart(productId: number) {
-			fetch('http://localhost:8080/deleteCart/'+productId,{
+			fetch('http://it2810-07.idi.ntnu.no:3000/deleteCart/'+productId,{
 				method: 'POST',
 				mode: 'cors',
 				credentials: 'include',
@@ -84,13 +84,13 @@ const SessionContext = () => {
 		},
 		getCart() {
 			const getAPI = async () => {
-				const response = await fetch("http://localhost:8080/getCart",{
+				const response = await fetch("http://it2810-07.idi.ntnu.no:3000/getCart",{
 					method: 'GET',
 					mode: 'cors',
 					credentials: 'include',
 				});
 				const data = await response.json();
-				console.log(data);
+				//console.log(data);
 				try {
 					this.setCart(data[0]);
 					this.setCartProduct(data[1]);
@@ -101,7 +101,7 @@ const SessionContext = () => {
 			getAPI();
 		},
 		updateCart() {
-			fetch('http://localhost:8080/updateCart/'+this.cart,{
+			fetch('http://it2810-07.idi.ntnu.no:3000/updateCart/'+this.cart,{
 				method: 'POST',
 				mode: 'cors',
 				credentials: 'include',

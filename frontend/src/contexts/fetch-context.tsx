@@ -46,7 +46,7 @@ const FetchContext = () => {
 			this.setFilterTerm(newList);
 		},
 		async getAPI(sortRefVal: string, searchRefVal: string) {
-			let url: string = `http://localhost:8080/?pageOffset=${this.currentPage}&pageSize=${this.pageSize}&sortTerm=${sortRefVal}`;
+			let url: string = `http://it2810-07.idi.ntnu.no:3000/?pageOffset=${this.currentPage}&pageSize=${this.pageSize}&sortTerm=${sortRefVal}`;
 			if (this.filterTerm.length > 0) url += `&filterTerm=${JSON.stringify(this.filterTerm)}`;
 			if (searchRefVal) url += `&searchTerm=${searchRefVal}`;
 			const response = await fetch(url,{

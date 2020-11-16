@@ -2,9 +2,8 @@ import React, { FC, useContext, useState } from "react";
 import { StatusBar } from 'expo-status-bar';
 import { Dimensions, TouchableOpacity, Image, StyleSheet, Text, TextInput, View, ScrollView } from 'react-native';
 import Constants from 'expo-constants';
-import Carousel, {MemoizedCarousel} from './src/components/Carousel';
+import Carousel, { MemoizedCarousel } from './src/components/Carousel';
 import ShoppingCart from './src/components/ShoppingCart';
-import ReactPaginate from 'react-paginate';
 import Search from './src/components/Search';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import ItemDisplay from "./src/components/ItemDisplay";
@@ -12,6 +11,7 @@ import Product from "./src/models/product";
 import { observer } from "mobx-react-lite"
 import { RootStoreContext } from "./src/stores/root-store";
 import RootStore from "./src/stores/root-store";
+import Pagination from "react-native-pagination";
 
 const { width: windowWidth, height: windowHeight } = Dimensions.get("window");
 const assets = {
@@ -55,15 +55,15 @@ const Splash = (props: IProps) => {
 		},
 	});
 	return (
-		<View style={{ backgroundColor: colors.themeColor}}>
+		<View style={{ backgroundColor: colors.themeColor }}>
 			<View style={{ padding: 16, flexDirection: "row", justifyContent: "space-between", alignItems: 'center' }}>
 				<View style={styles.inputBox}>
 					<TouchableOpacity onPress={() => props.setSearched(true)} >
 						<Icon style={styles.inputIcon} name="search" size={20} color="#fff" />
 					</TouchableOpacity>
-					<TextInput style={styles.input} value="search.."/>
+					<TextInput style={styles.input} value="search.." />
 				</View>
-				<View style={{ flexDirection: "row"}}>
+				<View style={{ flexDirection: "row" }}>
 					<TouchableOpacity onPress={() => props.setVisible(true)} >
 						<Icon style={styles.navCart} name="shopping-cart" size={28} color="#fff" />
 					</TouchableOpacity>
@@ -84,57 +84,42 @@ const App: FC = observer(() => {
 	const itemModal = (id: string, product: Product = null) => {
 		setModal({ id: id, product: product });
 	};
-	
+
 	return (
-	<View style={styles.container}>
-		<StatusBar backgroundColor={'#fff'}/>
-		<Splash setVisible={setVisible} setSearched={setSearched}/>
-		<ScrollView style={styles.scrollView}>
-			<View style={styles.front}>
-				<Image source={assets.eye} style={styles.eye} />
-				<View style={{ flex: 1, width: '100%', top: 70, left: -60, justifyContent: 'center', alignItems: 'center', position: 'absolute'}}>
-					<Text style={styles.splashText}>A wonderful serenity has taken</Text>
-					<Text style={styles.splashText2}>possession of my entire soul.</Text>
+		<View style={styles.container}>
+			<StatusBar backgroundColor={'#fff'} />
+			<Splash setVisible={setVisible} setSearched={setSearched} />
+			<ScrollView style={styles.scrollView}>
+				<View style={styles.front}>
+					<Image source={assets.eye} style={styles.eye} />
+					<View style={{ flex: 1, width: '100%', top: 70, left: -60, justifyContent: 'center', alignItems: 'center', position: 'absolute' }}>
+						<Text style={styles.splashText}>A wonderful serenity has taken</Text>
+						<Text style={styles.splashText2}>possession of my entire soul.</Text>
+					</View>
 				</View>
-			</View>
-			<View style={{ height: 400, width: '100%'}}>
-				<MemoizedCarousel />
-			</View>
-			{/*
-			<View>
-				<ReactPaginate  previousLabel={'previous'}
-					nextLabel={'next'}
-					breakLabel={'...'}
-					breakClassName={'break-me'}
-					pageCount={CTX.fetchStore.pageCount}
-					forcePage={CTX.fetchStore.currentPage}
-					marginPagesDisplayed={1}
-					pageRangeDisplayed={3}
-					onPageChange={({selected}) => CTX.fetchStore.setCurrentPage(selected)}
-					containerClassName={'pagination'}
-					nextClassName={'next'}
-					activeClassName={'active'} />
-			</View>
-			*/}
-			<ItemDisplay setModal={itemModal} itemList={CTX.fetchStore.products} />
-			<View style={{ height: 100, width: '100%', alignItems: 'center'}}>
-				<View style={{ width: '90%', backgroundColor: '#fff', borderRadius: 10, padding: 10, marginHorizontal: 'auto' }}>
-					<Text style={styles.splashText2}>Team7</Text>
+				<View style={{ height: 400, width: '100%' }}>
+					<MemoizedCarousel />
 				</View>
-			</View>
-		</ScrollView>
-		<ShoppingCart visible={visible} setVisible={setVisible}/>
-		<Search searched={searched} setSearched={setSearched}/>
-	</View>
+
+				<ItemDisplay setModal={itemModal} itemList={CTX.fetchStore.products} />
+				<View style={{ height: 100, width: '100%', alignItems: 'center' }}>
+					<View style={{ width: '90%', backgroundColor: '#fff', borderRadius: 10, padding: 10, marginHorizontal: 'auto' }}>
+						<Text style={styles.splashText2}>Team7</Text>
+					</View>
+				</View>
+			</ScrollView>
+			<ShoppingCart visible={visible} setVisible={setVisible} />
+			<Search searched={searched} setSearched={setSearched} />
+		</View>
 	);
 })
 const Index = observer(() => {
-	return(
-	<View>
-		<RootStore>
-			<App />
-		</RootStore>
-	</View>
+	return (
+		<View>
+			<RootStore>
+				<App />
+			</RootStore>
+		</View>
 	);
 });
 export default Index;
@@ -157,20 +142,21 @@ const styles = StyleSheet.create({
 
 	},
 	front: {
-        alignItems: 'center',
+		alignItems: 'center',
 	},
 	eye: {
 		flex: 1,
 		height: 210,
 		resizeMode: 'contain',
 		justifyContent: 'center',
-        alignItems: 'center',
+		alignItems: 'center',
 		transform: [
-			{translateX: 40},
+			{ translateX: 40 },
 		],
 	},
 	scrollView: {
 		backgroundColor: 'pink',
+		flex: 1,
 	},
 	container: {
 		height: windowHeight,

@@ -17,7 +17,7 @@ const ReviewContext = () => {
 		async postReviews(productId: string, reviewText: string, rndName: string, stars: number) {
 			if (this.sessionId && rndName && reviewText && productId && stars) {
 				const getAPI = async () => {
-					const url: string = `http://localhost:8080/post-review/?productId=${productId}&sessionId=${this.sessionId}&name=${rndName}&reviewText=${reviewText}&stars=${stars}`;
+					const url: string = `http://it2810-07.idi.ntnu.no:3000/post-review/?productId=${productId}&sessionId=${this.sessionId}&name=${rndName}&reviewText=${reviewText}&stars=${stars}`;
 					await fetch(url,{
 						method: 'POST',
 						mode: 'cors',
@@ -36,7 +36,7 @@ const ReviewContext = () => {
 		},
 		getReviews(productId: string) {
 			const getAPI = async () => {
-				const response = await fetch(`http://localhost:8080/reviews/${productId}`,{
+				const response = await fetch(`http://it2810-07.idi.ntnu.no:3000/reviews/${productId}`,{
 					method: 'GET',
 					mode: 'cors',
 					credentials: 'include',

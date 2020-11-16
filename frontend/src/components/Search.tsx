@@ -1,6 +1,7 @@
 import React, { useState, useCallback, useEffect, useRef } from "react";
-import { CheckBox, Animated, TextInput, TouchableOpacity, Alert, FlatList, ScrollView, Dimensions, Image, Button, StyleSheet, Text, View } from 'react-native';
+import { CheckBox, Animated, TextInput, TouchableOpacity, Alert, FlatList, ScrollView, Dimensions, Image, Button, StyleSheet, Text, View} from 'react-native';
 import Constants from 'expo-constants';
+
 import Icon from 'react-native-vector-icons/MaterialIcons';
 // import CheckBox from '@react-native-community/checkbox';
 
@@ -211,6 +212,7 @@ const FilterWindow = (props: IFilterWindow) => {
 		windowItems: {
 			height: '90%',
 			padding: 10,
+			flex: 1,
 		},
 		btnReset: {
 			backgroundColor: colors.themeColor,

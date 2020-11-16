@@ -1,8 +1,8 @@
-import React, { useState, useCallback, useEffect, useRef } from "react";
+import React, { useState, useCallback, useEffect, useRef, useContext } from "react";
 import { FlatList, Dimensions, Image, StyleSheet, Text, View } from 'react-native';
-import PaginationDot from 'react-native-animated-pagination-dot'
 import Constants from 'expo-constants';
 import Product from "../models/product";
+import { RootStoreContext } from "../stores/root-store";
 
 
 const { width: windowWidth, height: windowHeight } = Dimensions.get("window");
@@ -25,15 +25,16 @@ function Slide(props: IProps) {
 }
 
 export default function Carousel() {
+	const CTX = useContext(RootStoreContext);
 	const [loading, setLoading] = useState(false);
 	const [products, setProducts] = useState<Product[]>([]);
 
 	useEffect(() => {
 		const getAPI = async () => {
-		  const response = await fetch("http://localhost:8080/");
+		  const response = await fetch("http://it2810-07.idi.ntnu.no:3000/");
 		  const data = await response.json();
 		  try {
-			console.log(data);
+			//console.log(data);
 			setLoading(false);
 			setProducts(data);
 		  } catch (error) {
@@ -44,7 +45,7 @@ export default function Carousel() {
 	  }, []);
 	return (
 		
-		<FlatList data={products} style={styles.container} contentContainerStyle={{alignItems: 'center', justifyContent: 'center' }}
+		<FlatList data={CTX.fetchStore.products.length != 0 ? CTX.fetchStore.products : products} style={styles.container} contentContainerStyle={{alignItems: 'center', justifyContent: 'center' }}
 			renderItem={({ item }) => {
 				return(<Slide id={item.id} image={item.image_link} title={item.name} subtitle={item.description}/>);
 			}}

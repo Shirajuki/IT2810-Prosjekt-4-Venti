@@ -16,5 +16,8 @@
   "include": [
     "*.tsx"
   ],
-  "files":[]
+  "typeRoots": [
+    "./node_modules/@types",
+    "./@types"
+],
 }
