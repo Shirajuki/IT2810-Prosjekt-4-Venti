@@ -31,7 +31,7 @@ const Items = observer((props: IProps) => {
 		return (
 			<TouchableOpacity onPress={() => props.onClick}>
 				<View >
-					<Image source={{uri: props.img}} style={{width: 400, height: 400}}/>
+					<Image source={{uri: props.img}} style={{resizeMode: "contain",width: 400, height: 400}}/>
 					{Number(stars)*2 === 0 ? starElements[Number(stars)*2] : null}
 					{Number(stars)*2 === 1 ? starElements[Number(stars)*2] : null}
 					{Number(stars)*2 === 2 ? starElements[Number(stars)*2] : null}
@@ -53,7 +53,7 @@ const Items = observer((props: IProps) => {
 		return (
 			<TouchableOpacity  onPress={() => props.onClick}>
 				<View >
-					<Image  source={{uri: props.img}} style={{width: 400, height: 400}}/>
+					<Image  source={{uri: ""+props.img+""}} style={{resizeMode: "contain", width: 400, height: 400}}/>
 				</View>
 				<View >
 					<Text >{props.name}</Text>
@@ -87,7 +87,7 @@ const Items = observer((props: IProps) => {
 		return (
 			<View >
 				<View >
-					<Image source={{uri: props.img}} style={{width: 400, height: 400}}/>
+					<Image source={{uri: ""+props.img+""}} style={{resizeMode: "contain", width: 400, height: 400}}/>
 				</View>
 				<View>
 					<Text >{props.name}</Text>
@@ -111,7 +111,7 @@ const Items = observer((props: IProps) => {
 		return (
 			<TouchableOpacity onPress={props.onClick}>
 				<View>
-					<Image source={{uri: props.img}}  style={{width: 400, height: 400}}/>
+					<Image source={{uri: ""+props.img+""}}  style={{resizeMode: "contain", width: 400, height: 400}}/>
 					<StarRating size={15} initialRating={stars} isReadOnly={true} isHalfRating={true}/>
 				</View>
 				<Text >{props.name}</Text>

@@ -33,14 +33,14 @@ const Splash = (props: IProps) => {
 			left: 0,
 			paddingHorizontal: 10,
 		},
-		inputBox: {
+		/*inputBox: {
 			alignItems: 'center',
 			flexDirection: 'row',
 			width: '90%',
 			borderRadius: 20,
 			backgroundColor: 'rgba(0,0,0,.3)',
 			paddingHorizontal: 5,
-		},
+		},*/
 		input: {
 			width: '100%',
 			height: 40,
@@ -55,12 +55,11 @@ const Splash = (props: IProps) => {
 	});
 	return (
 		<View style={{ backgroundColor: colors.themeColor}}>
-			<View style={{ padding: 16, flexDirection: "row", justifyContent: "space-between", alignItems: 'center' }}>
-				<View style={styles.inputBox}>
+			<View style={{ padding: 16, flexDirection: "row", justifyContent: "flex-end", alignItems: 'center' }}>
+				<View >
 					<TouchableOpacity onPress={() => props.setSearched(true)} >
-						<Icon style={styles.inputIcon} name="search" size={20} color="#fff" />
+						<Icon style={styles.inputIcon} name="search" size={28} color="#fff" />
 					</TouchableOpacity>
-					<TextInput style={styles.input} value="search.."/>
 				</View>
 				<View style={{ flexDirection: "row"}}>
 					<TouchableOpacity onPress={() => props.setVisible(true)} >
@@ -116,12 +115,12 @@ const App: FC = observer(() => {
 			</View>
 			*/}
 			<ItemDisplay setModal={itemModal} itemList={CTX.fetchStore.products} />
-			<View style={{ height: 100, width: '100%', alignItems: 'center'}}>
-				<View style={{ width: '90%', backgroundColor: '#fff', borderRadius: 10, padding: 10, marginHorizontal: 'auto' }}>
-					<Text style={styles.splashText2}>Team7</Text>
-				</View>
-			</View>
 		</ScrollView>
+		<View style={{ height: 120, width: '100%', alignItems: 'center', backgroundColor: colors.themeColor}}>
+			<View style={{ width: '90%', borderRadius: 10, padding: 10, marginHorizontal: 'auto'}}>
+				<Text style={styles.splashText3}>Team7</Text>
+			</View>
+		</View>
 		<ShoppingCart visible={visible} setVisible={setVisible}/>
 		<Search searched={searched} setSearched={setSearched}/>
 	</View>
@@ -148,9 +147,17 @@ const styles = StyleSheet.create({
 	},
 	splashText2: {
 		fontSize: 16,
-		color: '#000',
+		color: '#fff',
 		fontWeight: '500',
-		backgroundColor: 'rgba(255,255,255,.5)',
+		backgroundColor: 'rgba(0,0,0,.5)',
+		textAlign: 'center'
+	},
+	splashText3: {
+		fontSize: 16,
+		color: '#fff',
+		fontWeight: '500',
+		textAlign: 'center',
+		padding: 20
 	},
 	navCart: {
 

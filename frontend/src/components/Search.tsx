@@ -1,8 +1,8 @@
 import React, { useState, useCallback, useEffect, useRef } from "react";
-import { CheckBox, Animated, TextInput, TouchableOpacity, Alert, FlatList, ScrollView, Dimensions, Image, Button, StyleSheet, Text, View } from 'react-native';
+import {CheckBox, Animated, TextInput, TouchableOpacity, Alert, FlatList, ScrollView, Dimensions, Image, Button, StyleSheet, Text, View } from 'react-native';
 import Constants from 'expo-constants';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-// import CheckBox from '@react-native-community/checkbox';
+//import CheckBox from '@react-native-community/checkbox';
 
 const { width: windowWidth, height: windowHeight } = Dimensions.get("window");
 
@@ -139,6 +139,36 @@ const DropDown = (props: IProps4) => {
 	const orderBys = () => {
 		return Object.entries(orderBy);
 	}
+	const styles = StyleSheet.create({
+		windowExit: {
+			position: 'absolute',
+			top: 16,
+			right: 16,
+		},
+		windowItems: {
+			height: '90%',
+			padding: 10,
+		},
+		btnReset: {
+			backgroundColor: colors.themeColor,
+			width: '50%',
+			alignItems: 'center',
+			justifyContent: 'center',
+		},
+		btnDone: {
+			backgroundColor: colors.darkestColor,
+			width: '50%',
+			alignItems: 'center',
+			justifyContent: 'center',
+		},
+		filterTitle: {
+			fontWeight: '600',
+			fontSize: 16,
+		},
+		list: {
+			marginBottom: 10,
+		},
+	});
 	// Strict mode error here v
 	return (
 		<Animated.View style={{ ...containerStyle, transform: [{translateY: anim}] }}>
@@ -399,7 +429,7 @@ export default function Search(props: IProps) {
 			<View style={styles.searchTitle}>
 				<View style={styles.searchBar}>
 					<TouchableOpacity onPress={closeSearch}>
-						<Icon name="arrow-back" size={28} color={colors.darkestColor} style={styles.searchExit}/>
+						<Icon name="arrow-forward" size={28} color={colors.darkestColor} style={styles.searchExit}/>
 					</TouchableOpacity>
 					<View style={styles.inputBox}>
 						<TouchableOpacity onPress={closeSearch}>
