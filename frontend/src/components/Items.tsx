@@ -156,9 +156,9 @@ const Items = observer((props: IProps) => {
 						<View style={styles.imgWrapper}>
 							<Image style={styles.img} source={{uri: ""+props.img}}/>
 						</View>
-						<View style={styles.itemInfo}>
+						<View>
 							<Text numberOfLines={2} style={styles.itemName}>{props.name}</Text>
-							<View style={styles.itemRating}>
+							<View>
 								<StarRating size={5} initialRating={stars} isReadOnly={true} isHalfRating={true}/>
 							</View>
 							<Text style={styles.itemPrice}>{props.price}$</Text>

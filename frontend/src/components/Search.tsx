@@ -7,6 +7,7 @@ import Items from "./Items";
 //import CheckBox from '@react-native-community/checkbox';
 import { observer } from "mobx-react-lite";
 import { RootStoreContext } from "../stores/root-store";
+import Product from "../models/product";
 
 const { width: windowWidth, height: windowHeight } = Dimensions.get("window");
 
@@ -413,7 +414,7 @@ const Search = observer((props: IProps) => {
 	const [filterVisible,setFilterVisible] = useState(false);
 	const [orderByVisible,setOrderByVisible] = useState(false);
 	const anim = useRef(new Animated.Value(windowWidth)).current;
-	console.log(CTX,CTX.fetchStore.products)
+	//console.log(CTX,CTX.fetchStore.products)
 	useEffect(() => {
 		Animated.timing(anim,{
 			toValue: props.searched ? 0 : windowWidth,
@@ -455,7 +456,8 @@ const Search = observer((props: IProps) => {
 			</View>
 			<FlatList style={styles.searchItems} data={CTX.fetchStore.products}
 				renderItem={({item}) => {
-					return(<Items key={item.id} id={item.id} img={item.image_link} name={item.name} description={item.description} rating={item.rating} price={item.price} type="" onClick={() => props.setModal(item.id, item) } />);
+					console.log(typeof(item.id + ""));
+					return(<Items key={item.id + ""} id={item.id} img={item.image_link} name={item.name} description={item.description} rating={item.rating} price={item.price} type="" onClick={() => props.setModal(item.id, item) } />);
 				}}
 			/>
 		</View>

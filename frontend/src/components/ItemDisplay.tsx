@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import Product from "../models/product";
 import { FlatList, View } from 'react-native';
 import Items from './Items';
+import { RootStoreContext } from "../stores/root-store";
 
 interface IProps {
 	setModal: (id:string, product: Product) => void;
@@ -9,11 +10,15 @@ interface IProps {
 }
 
 const ItemDisplay = (props: IProps) => {
+	const CTX = useContext(RootStoreContext);
+	//console.log(CTX.fetchStore.products)
+	
+
 	return (
 		<View>
-			<FlatList data={props.itemList}
+			<FlatList data={CTX.fetchStore.products}
 				renderItem={({item}) => {
-					return(<Items key={item.id} id={item.id} img={item.image_link} name={item.name} description={item.description} rating={item.rating} price={item.price} type="" onClick={() => props.setModal(item.id, item) } />);
+					return(<Items key={item.id + ""} id={item.id} img={item.image_link} name={item.name} description={item.description} rating={item.rating} price={item.price} type="" onClick={() => props.setModal(item.id, item) } />);
 				}}
 			/>
 		</View>

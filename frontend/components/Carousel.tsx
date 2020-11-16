@@ -1,45 +1,43 @@
-import React, { useState, useCallback, useEffect, useRef, useContext } from "react";
+import React, { useState, useCallback, useEffect, useRef } from "react";
 import { FlatList, Dimensions, Image, StyleSheet, Text, View } from 'react-native';
 import Constants from 'expo-constants';
-import Product from "../models/product";
-import { observer } from "mobx-react-lite";
-import { RootStoreContext } from "../stores/root-store";
-
 
 const { width: windowWidth, height: windowHeight } = Dimensions.get("window");
-
+const slideList = Array.from({ length: 30 }).map((_, i) => {
+	return {
+		id: i,
+		image: `https://picsum.photos/1440/2842?random=${i}`,
+		title: `This is the title! ${i + 1}`,
+		subtitle: `This is the subtitle ${i + 1}!`,
+	};
+});
 interface IProps {
-	id: string;
+	id: number;
 	image: string;
 	title: string;
 	subtitle: string;
 }
 function Slide(props: IProps) {
-	// console.log(props.image);
 	return (
 		<View style={styles.slide}>
-			<Image source={{ uri: props.image}} style={styles.image}/>
+			<Image source={{ uri: props.image }} style={styles.image}/>
 			<Text style={{ fontSize: 24 }}>{props.title}</Text>
+			<Text style={{ fontSize: 18 }}>{props.subtitle}</Text>
 		</View>
 	);
 }
 
-const Carousel = observer(() => {
-	const CTX = useContext(RootStoreContext);
-	//console.log(CTX.fetchStore.products)
-	useEffect(() => {
-		CTX.fetchStore.getAPI("name_asc", "");
-	}, []);
+export default function Carousel() {
+	
 	return (
-		<FlatList data={CTX.fetchStore.products} style={styles.container} contentContainerStyle={{alignItems: 'center', justifyContent: 'center' }}
+		<FlatList data={slideList} style={styles.container} contentContainerStyle={{alignItems: 'center', justifyContent: 'center' }}
 			renderItem={({ item }) => {
-				return(<Slide id={item.id} image={item.image_link} title={item.name} subtitle={item.description}/>);
+				return <Slide id={item.id} image={item.image} title={item.title} subtitle={item.subtitle}/>;
 			}}
-			pagingEnabled horizontal showsHorizontalScrollIndicator
+			pagingEnabled horizontal showsHorizontalScrollIndicator 
 		/>
 	);
-});
-export default Carousel;
+};
 export const MemoizedCarousel = React.memo(Carousel);
 const styles = StyleSheet.create({
 	container: {
