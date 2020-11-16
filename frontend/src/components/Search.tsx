@@ -2,6 +2,7 @@ import React, { useState, useCallback, useEffect, useRef } from "react";
 import {CheckBox, Animated, TextInput, TouchableOpacity, Alert, FlatList, ScrollView, Dimensions, Image, Button, StyleSheet, Text, View } from 'react-native';
 import Constants from 'expo-constants';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import ItemDisplay from "./ItemDisplay";
 //import CheckBox from '@react-native-community/checkbox';
 
 const { width: windowWidth, height: windowHeight } = Dimensions.get("window");
@@ -384,7 +385,7 @@ const Item = () => {
 		<TouchableOpacity onPress={() => console.log("ITEM")}>
 			<View style={styles.itemDisplay}>
 				<View style={styles.imgWrapper}>
-					<View style={styles.img}></View>
+					<Image style={styles.img} source={{uri: 'https://www.nyxcosmetics.com/dw/image/v2/AANG_PRD/on/demandware.static/-/Sites-cpd-nyxusa-master-catalog/default/dw226b9283/ProductImages/2016/Lips/Lip_Of_The_Day_Liquid_Lip_Liner/lipoftheday_main.jpg?sw=390&sh=390&sm=fit'}}/>
 				</View>
 				<View style={styles.itemInfo}>
 					<Text numberOfLines={2} style={styles.itemName}>Craft-paper Origami DIY Handmade Lucky-Stars Colorful Mixed-Color-Set</Text>
@@ -404,7 +405,7 @@ export default function Search(props: IProps) {
 	useEffect(() => {
 		Animated.timing(anim,{
 			toValue: props.searched ? 0 : windowWidth,
-			duration: 200,
+			duration: 800,
 			useNativeDriver: true,
 		}).start();
 	}, [props.searched])
@@ -441,12 +442,7 @@ export default function Search(props: IProps) {
 				<Filter orderByVisible={orderByVisible} setOrderByVisible={setOrderByVisible} filterVisible={filterVisible} setFilterVisible={setFilterVisible}/>
 			</View>
 			<ScrollView style={styles.searchItems}>
-				<Item />
-				<Item />
-				<Item />
-				<Item />
-				<Item />
-				<Item />
+				<Item/>
 			</ScrollView>
 		</View>
 		<FilterWindow filterVisible={filterVisible} setFilterVisible={setFilterVisible}/>
