@@ -11,7 +11,7 @@ import Product from "./src/models/product";
 import { observer } from "mobx-react-lite";
 import { RootStoreContext } from "./src/stores/root-store";
 import RootStore from "./src/stores/root-store";
-import Pagination from "react-native-pagination";
+const Pagination = require("react-native-pagination");
 
 const { width: windowWidth, height: windowHeight } = Dimensions.get("window");
 const assets = {
@@ -55,7 +55,7 @@ const Splash = (props: IProps) => {
 		},
 	});
 	return (
-		<View style={{ backgroundColor: colors.themeColor}}>
+		<View style={{ backgroundColor: colors.themeColor }}>
 			<View style={{ padding: 16, flexDirection: "row", justifyContent: "flex-end", alignItems: 'center' }}>
 				<View >
 					<TouchableOpacity onPress={() => props.setSearched(true)} >
@@ -96,20 +96,21 @@ const App: FC = observer(() => {
 						<Text style={styles.splashText2}>possession of my entire soul.</Text>
 					</View>
 				</View>
-			<View style={{ height: 400, width: '100%'}}>
-				<MemoizedCarousel />
+				<View style={{ height: 400, width: '100%' }}>
+					<MemoizedCarousel />
+				</View>
+
+				<ItemDisplay setModal={itemModal} itemList={CTX.fetchStore.products} />
+				<Pagination />
+			</ScrollView>
+			<View style={{ height: 120, width: '100%', alignItems: 'center', backgroundColor: colors.themeColor }}>
+				<View style={{ width: '90%', borderRadius: 10, padding: 10, marginHorizontal: 'auto' }}>
+					<Text style={styles.splashText3}>Team7</Text>
+				</View>
 			</View>
-			
-			<ItemDisplay setModal={itemModal} itemList={CTX.fetchStore.products} />
-		</ScrollView>
-		<View style={{ height: 120, width: '100%', alignItems: 'center', backgroundColor: colors.themeColor}}>
-			<View style={{ width: '90%', borderRadius: 10, padding: 10, marginHorizontal: 'auto'}}>
-				<Text style={styles.splashText3}>Team7</Text>
-			</View>
+			<ShoppingCart visible={visible} setVisible={setVisible} />
+			<Search searched={searched} setSearched={setSearched} />
 		</View>
-		<ShoppingCart visible={visible} setVisible={setVisible}/>
-		<Search searched={searched} setSearched={setSearched}/>
-	</View>
 	);
 })
 const Index = observer(() => {
