@@ -1,10 +1,12 @@
-import React, { useState, useCallback, useEffect, useRef } from "react";
+import React, { useState, useCallback, useEffect, useRef, useContext } from "react";
 import {CheckBox, Animated, TextInput, TouchableOpacity, Alert, FlatList, ScrollView, Dimensions, Image, Button, StyleSheet, Text, View } from 'react-native';
 import Constants from 'expo-constants';
-
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import ItemDisplay from "./ItemDisplay";
+import Items from "./Items";
 //import CheckBox from '@react-native-community/checkbox';
+import { observer } from "mobx-react-lite";
+import { RootStoreContext } from "../stores/root-store";
 
 const { width: windowWidth, height: windowHeight } = Dimensions.get("window");
 
@@ -14,9 +16,14 @@ const colors = {
 	lightColor: '#d4bbed',
 	darkestColor: '#52307c',
 }
+interface IModal {
+	id: string;
+	product: Product[];
+}
 interface IProps {
 	searched: boolean;
 	setSearched: (b: boolean) => void;
+	setModal: (IModal) => void; 
 }
 interface IFilterWindow {
 	filterVisible: boolean;
@@ -271,6 +278,7 @@ const FilterWindow = (props: IFilterWindow) => {
 			<View style={{height: windowHeight}}>
 				<ScrollView style={styles.windowItems}>
 					<Text style={styles.filterTitle}>Types</Text>
+					{ /* FlatList change to View, use map */}
 					<FlatList data={types()} style={styles.list}
 						renderItem={({ item }) => {
 							return <Checkbox name={item[0]} value={item[1]}/>;
@@ -399,11 +407,13 @@ const Item = () => {
 	</View>
 	);
 }
-export default function Search(props: IProps) {
+const Search = observer((props: IProps) => {
+	const CTX = useContext(RootStoreContext);
 	const closeSearch = () => props.setSearched(false);
 	const [filterVisible,setFilterVisible] = useState(false);
 	const [orderByVisible,setOrderByVisible] = useState(false);
 	const anim = useRef(new Animated.Value(windowWidth)).current;
+	console.log(CTX,CTX.fetchStore.products)
 	useEffect(() => {
 		Animated.timing(anim,{
 			toValue: props.searched ? 0 : windowWidth,
@@ -443,14 +453,17 @@ export default function Search(props: IProps) {
 				</View>
 				<Filter orderByVisible={orderByVisible} setOrderByVisible={setOrderByVisible} filterVisible={filterVisible} setFilterVisible={setFilterVisible}/>
 			</View>
-			<ScrollView style={styles.searchItems}>
-				<Item/>
-			</ScrollView>
+			<FlatList style={styles.searchItems} data={CTX.fetchStore.products}
+				renderItem={({item}) => {
+					return(<Items key={item.id} id={item.id} img={item.image_link} name={item.name} description={item.description} rating={item.rating} price={item.price} type="" onClick={() => props.setModal(item.id, item) } />);
+				}}
+			/>
 		</View>
 		<FilterWindow filterVisible={filterVisible} setFilterVisible={setFilterVisible}/>
 	</Animated.View>
 	);
-};
+});
+export default Search;
 const styles = StyleSheet.create({
 	searchExit: {
 	},

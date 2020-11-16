@@ -1,4 +1,4 @@
-import React, { FC, useContext, useState } from "react";
+import React, { FC, useContext, useState, useEffect } from "react";
 import { StatusBar } from 'expo-status-bar';
 import { Dimensions, TouchableOpacity, Image, StyleSheet, Text, TextInput, View, ScrollView } from 'react-native';
 import Constants from 'expo-constants';
@@ -9,6 +9,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import ItemDisplay from "./src/components/ItemDisplay";
 import Product from "./src/models/product";
 import { observer } from "mobx-react-lite";
+import Cookies from "js-cookie";
 import { RootStoreContext } from "./src/stores/root-store";
 import RootStore from "./src/stores/root-store";
 const Pagination = require("react-native-pagination");
@@ -56,8 +57,9 @@ const Splash = (props: IProps) => {
 	});
 	return (
 		<View style={{ backgroundColor: colors.themeColor }}>
+			<Image source={assets.logo} style={{position: 'absolute', top: -10, left: 10, width: 80, height: 80, }} />
 			<View style={{ padding: 16, flexDirection: "row", justifyContent: "flex-end", alignItems: 'center' }}>
-				<View >
+				<View>
 					<TouchableOpacity onPress={() => props.setSearched(true)} >
 						<Icon style={styles.inputIcon} name="search" size={28} color="#fff" />
 					</TouchableOpacity>
@@ -80,9 +82,26 @@ const App: FC = observer(() => {
 		id: "none",
 		product: null,
 	});
+	const sort = "name_asc";
 	const itemModal = (id: string, product: Product = null) => {
 		setModal({ id: id, product: product });
 	};
+	useEffect(() => {
+		CTX.fetchStore.setPageCount(Math.ceil(CTX.fetchStore.productsCount / CTX.fetchStore.pageSize))
+	}, [CTX.fetchStore.productsCount, CTX.fetchStore.pageSize])
+
+	useEffect(() => {
+		CTX.fetchStore.getAPI(sort, "");
+	}, [CTX.fetchStore.currentPage, CTX.fetchStore.pageSize, CTX.fetchStore.filterTerm]);
+ 
+ 	useEffect(() => {
+ 	   const cart = CTX.sessionStore.getCart;
+		let cookie = Cookies.get("connect.sid")||"none";
+		if (cookie !== "none") cookie = cookie.split(".")[0].substring(2);
+		CTX.sessionStore.setCart(""+cart);
+		CTX.sessionStore.setSession(cookie);
+		CTX.reviewStore.setSession(cookie);
+	 }, [])
 
 	return (
 		<View style={styles.container}>
@@ -94,16 +113,16 @@ const App: FC = observer(() => {
 					<View style={{ flex: 1, width: '100%', top: 70, left: -60, justifyContent: 'center', alignItems: 'center', position: 'absolute' }}>
 						<Text style={styles.splashText}>A wonderful serenity has taken</Text>
 						<Text style={styles.splashText2}>possession of my entire soul.</Text>
+						<Text style={styles.splashText}>{CTX.sessionStore.session?.sessionID || "none"}</Text>
 					</View>
 				</View>
 				<View style={{ height: 400, width: '100%' }}>
 					<MemoizedCarousel />
 				</View>
 
-				<ItemDisplay setModal={itemModal} itemList={CTX.fetchStore.products} />
-				<Pagination />
+				{ /*<ItemDisplay setModal={itemModal} itemList={CTX.fetchStore.products} /> */ }
 			</ScrollView>
-			<View style={{ height: 120, width: '100%', alignItems: 'center', backgroundColor: colors.themeColor }}>
+			<View style={{ height: 100, width: '100%', alignItems: 'center', backgroundColor: colors.themeColor }}>
 				<View style={{ width: '90%', borderRadius: 10, padding: 10, marginHorizontal: 'auto' }}>
 					<Text style={styles.splashText3}>Team7</Text>
 				</View>

@@ -2,6 +2,7 @@ import React, { useState, useCallback, useEffect, useRef, useContext } from "rea
 import { FlatList, Dimensions, Image, StyleSheet, Text, View } from 'react-native';
 import Constants from 'expo-constants';
 import Product from "../models/product";
+import { observer } from "mobx-react-lite";
 import { RootStoreContext } from "../stores/root-store";
 
 
@@ -14,45 +15,31 @@ interface IProps {
 	subtitle: string;
 }
 function Slide(props: IProps) {
-	console.log(props.image);
+	// console.log(props.image);
 	return (
 		<View style={styles.slide}>
 			<Image source={{ uri: props.image}} style={styles.image}/>
 			<Text style={{ fontSize: 24 }}>{props.title}</Text>
 		</View>
-		
 	);
 }
 
-export default function Carousel() {
+const Carousel = observer(() => {
 	const CTX = useContext(RootStoreContext);
-	const [loading, setLoading] = useState(false);
-	const [products, setProducts] = useState<Product[]>([]);
-
+	console.log(CTX.fetchStore.products)
 	useEffect(() => {
-		const getAPI = async () => {
-		  const response = await fetch("http://it2810-07.idi.ntnu.no:3000/");
-		  const data = await response.json();
-		  try {
-			//console.log(data);
-			setLoading(false);
-			setProducts(data);
-		  } catch (error) {
-			console.log(error);
-		  }
-		};
-		getAPI();
-	  }, []);
+		CTX.fetchStore.getAPI("name_asc", "");
+	}, []);
 	return (
-		
-		<FlatList data={CTX.fetchStore.products.length != 0 ? CTX.fetchStore.products : products} style={styles.container} contentContainerStyle={{alignItems: 'center', justifyContent: 'center' }}
+		<FlatList data={CTX.fetchStore.products} style={styles.container} contentContainerStyle={{alignItems: 'center', justifyContent: 'center' }}
 			renderItem={({ item }) => {
 				return(<Slide id={item.id} image={item.image_link} title={item.name} subtitle={item.description}/>);
 			}}
 			pagingEnabled horizontal showsHorizontalScrollIndicator
 		/>
 	);
-};
+});
+export default Carousel;
 export const MemoizedCarousel = React.memo(Carousel);
 const styles = StyleSheet.create({
 	container: {

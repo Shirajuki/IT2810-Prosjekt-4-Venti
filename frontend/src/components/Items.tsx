@@ -25,7 +25,48 @@ const Items = observer((props: IProps) => {
 	const CTX = useContext(RootStoreContext);
 	const product = useAsObservableSource(props);
 	const stars = Number(props.rating);
-
+	const colors = {
+		themeColor: 'darkslateblue',
+		darkColor: '#8364a9',
+		lightColor: '#d4bbed',
+		darkestColor: '#52307c',
+	}
+	const styles = StyleSheet.create({
+		img: {
+			width: '100%',
+			height: '100%',
+			backgroundColor: 'lightblue',
+			borderRadius: 8,
+		},
+		imgWrapper: {
+			width: '40%',
+			height: '100%',
+			padding: 5,
+		},
+		itemDisplay: {
+			flexDirection: 'row',
+			height: 120,
+			margin: 10,
+			marginVertical: 2,
+		},
+		itemInfo: {
+			paddingTop: 5,
+			width: '60%',
+			height: '100%',
+		},
+		itemName: {
+			fontSize: 11,
+			color: '#222',
+		},
+		itemRating: {
+			color: colors.darkestColor,
+		},
+		itemPrice: {
+			fontSize: 16,
+			fontWeight: '600',
+			color: colors.darkestColor,
+		},
+	});	
 	switch (props.type) {
 		case "carousel":
 		return (
@@ -105,6 +146,25 @@ const Items = observer((props: IProps) => {
 					<ImBin data-cy="remove-button" onClick={() => CTX.sessionStore.removeCart(Number(props.id))}/>
 					<Text >{props.price}</Text>
 				</View>
+			</View>
+		);
+		case "normal":
+		return(
+			<View>
+				<TouchableOpacity onPress={() => console.log("ITEM")}>
+					<View style={styles.itemDisplay}>
+						<View style={styles.imgWrapper}>
+							<Image style={styles.img} source={{uri: ""+props.img}}/>
+						</View>
+						<View style={styles.itemInfo}>
+							<Text numberOfLines={2} style={styles.itemName}>{props.name}</Text>
+							<View style={styles.itemRating}>
+								<StarRating size={5} initialRating={stars} isReadOnly={true} isHalfRating={true}/>
+							</View>
+							<Text style={styles.itemPrice}>{props.price}$</Text>
+						</View>
+					</View>
+				</TouchableOpacity>
 			</View>
 		);
 		default:

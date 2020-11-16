@@ -62,6 +62,7 @@ const FetchContext = () => {
 			const data = await response.json();
 			countProducts()
 			try {
+				console.log(this.products)
 				this.setProducts(data);
 			} catch (error) {
 				console.log(error);

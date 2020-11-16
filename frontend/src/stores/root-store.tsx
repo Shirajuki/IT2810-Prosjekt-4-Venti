@@ -18,7 +18,6 @@ const RootStore = ({ children }: any) => {
 	const sessionContext = useSessionContext();
 	const fetchContext = useFetchContext();
 	const reviewContext = useReviewContext();
-
 	return (
 		<RootStoreContext.Provider value={{ sessionStore: sessionContext, fetchStore: fetchContext, reviewStore: reviewContext }}>
 			{children}
