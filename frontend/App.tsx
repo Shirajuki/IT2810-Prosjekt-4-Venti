@@ -4,12 +4,11 @@ import { Dimensions, TouchableOpacity, Image, StyleSheet, Text, TextInput, View,
 import Constants from 'expo-constants';
 import Carousel, {MemoizedCarousel} from './src/components/Carousel';
 import ShoppingCart from './src/components/ShoppingCart';
-import ReactPaginate from 'react-paginate';
 import Search from './src/components/Search';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import ItemDisplay from "./src/components/ItemDisplay";
 import Product from "./src/models/product";
-import { observer } from "mobx-react-lite"
+import { observer } from "mobx-react-lite";
 import { RootStoreContext } from "./src/stores/root-store";
 import RootStore from "./src/stores/root-store";
 

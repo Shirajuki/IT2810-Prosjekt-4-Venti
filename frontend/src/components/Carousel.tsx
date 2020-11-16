@@ -33,7 +33,7 @@ export default function Carousel() {
 		  const response = await fetch("http://localhost:8080/");
 		  const data = await response.json();
 		  try {
-			console.log(data);
+			//console.log(data);
 			setLoading(false);
 			setProducts(data);
 		  } catch (error) {
