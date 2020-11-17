@@ -361,11 +361,9 @@ const Search = observer((props: IProps) => {
 	const [filterVisible,setFilterVisible] = useState(false);
 	const [orderByVisible,setOrderByVisible] = useState(false);
 	const searchRef = useRef(null);
-	//console.log(searchRef.current.text);
 	const sortRef = useRef(null);
 	const anim = useRef(new Animated.Value(windowWidth)).current;
 	const [searchTerm, setSearchTerm] = useState(""); 
-	//console.log(CTX,CTX.fetchStore.products)
 	useEffect(() => {
 		Animated.timing(anim,{
 			toValue: props.searched ? 0 : windowWidth,
@@ -376,7 +374,6 @@ const Search = observer((props: IProps) => {
 
 	useEffect(() => {
 		CTX.fetchStore.getAPI(sortRef?.current?.value, searchRef?.current?.value);
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [CTX.fetchStore.currentPage, CTX.fetchStore.pageSize, CTX.fetchStore.filterTerm]);
 
 
@@ -414,7 +411,7 @@ const Search = observer((props: IProps) => {
 			</View>
 			<FlatList style={styles.searchItems} data={CTX.fetchStore.products}
 				renderItem={({item}) => {
-					return(<Items type={"search"} key={"" + item.id + ""} id={item.id} img={item.image_link} name={item.name} description={item.description} brand={item.brand} price={item.price} type="" onClick={() => props.setModal(item.id, item) } />);
+					return(<Items type={'search'} key={"" + item.id + ""} id={item.id} img={item.image_link} name={item.name} description={item.description} brand={item.brand} price={item.price} type="" onClick={() => props.setModal(item.id, item) } />);
 				}}
 			/>
 		</View>
