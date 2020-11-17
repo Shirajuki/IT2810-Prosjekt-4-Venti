@@ -1,9 +1,7 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
-import {Alert, CheckBox, Animated, TextInput, TouchableOpacity, FlatList, ScrollView, Dimensions, Image, StyleSheet, Text, View } from 'react-native';
-import Constants from 'expo-constants';
+import { Animated, TextInput, TouchableOpacity, FlatList, Dimensions, StyleSheet, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Items from "./Items";
-// import CheckBox from '@react-native-community/checkbox';
 import { observer } from "mobx-react-lite";
 import { RootStoreContext } from "../stores/root-store";
 import Product from "../models/product";
