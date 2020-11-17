@@ -1,13 +1,14 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
-import {Animated, TextInput, TouchableOpacity, FlatList, ScrollView, Dimensions, Image, StyleSheet, Text, View } from 'react-native';
+import {Animated, CheckBox, TextInput, TouchableOpacity, FlatList, ScrollView, Dimensions, Image, StyleSheet, Text, View } from 'react-native';
 import Constants from 'expo-constants';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import ItemDisplay from "./ItemDisplay";
 import Items from "./Items";
-import CheckBox from '@react-native-community/checkbox';
+//import CheckBox from '@react-native-community/checkbox';
 import { observer } from "mobx-react-lite";
 import { RootStoreContext } from "../stores/root-store";
 import Product from "../models/product";
+
 
 const { width: windowWidth, height: windowHeight } = Dimensions.get("window");
 
@@ -50,7 +51,7 @@ interface IRadio {
 	orderByValue: string;
 	setOrderByValue: (val: string) => void;
 }
-const Checkbox = (props: IProps3) => {
+const Checkbox1 = (props: IProps3) => {
 	const [toggleCheckBox, setToggleCheckBox] = useState(false);
 	// props.value;
 	const styles = StyleSheet.create({
@@ -282,13 +283,13 @@ const FilterWindow = (props: IFilterWindow) => {
 					{ /* FlatList change to View, use map */}
 					<FlatList data={types()} style={styles.list}
 						renderItem={({ item }) => {
-							return <Checkbox name={item[0]} value={item[1]}/>;
+							return <Checkbox1 name={item[0]} value={item[1]}/>;
 						}}
 					/>
 					<Text style={styles.filterTitle}>Brands</Text>
 					<FlatList data={brands()} style={styles.list}
 						renderItem={({ item }) => {
-							return <Checkbox name={item[0]} value={item[1]}/>;
+							return <Checkbox1 name={item[0]} value={item[1]}/>;
 						}}
 					/>
 				</ScrollView>
@@ -414,8 +415,10 @@ const Search = observer((props: IProps) => {
 	const [filterVisible,setFilterVisible] = useState(false);
 	const [orderByVisible,setOrderByVisible] = useState(false);
 	const searchRef = useRef(null);
+	//console.log(searchRef.current.text);
 	const sortRef = useRef(null);
 	const anim = useRef(new Animated.Value(windowWidth)).current;
+	const [searchTerm, setSearchTerm] = useState(""); 
 	//console.log(CTX,CTX.fetchStore.products)
 	useEffect(() => {
 		Animated.timing(anim,{
@@ -458,7 +461,7 @@ const Search = observer((props: IProps) => {
 						<TouchableOpacity onPress={closeSearch}>
 							<Icon style={styles.inputIcon} name="search" size={20} color="#fff" />
 						</TouchableOpacity>
-						<TextInput style={styles.input} editable defaultValue={"search.."} ref={searchRef} onChangeText={() => CTX.fetchStore.search(sortRef?.current?.value, searchRef?.current?.value)}/>
+						<TextInput style={styles.input} editable placeholder={"search.."} ref={searchRef} value={searchTerm} onChange={(e) => setSearchTerm(e.nativeEvent.text)} onSubmitEditing={(e) => { CTX.fetchStore.search(sortRef?.current?.value, searchTerm)}} />
 					</View>
 				</View>
 				<Filter orderByVisible={orderByVisible} setOrderByVisible={setOrderByVisible} filterVisible={filterVisible} setFilterVisible={setFilterVisible}/>

@@ -115,7 +115,7 @@ const App: FC = observer(() => {
 					</View>
 				</View>
 				<View style={{ height: 400, width: '100%' }}>
-					<MemoizedCarousel />
+					<Carousel />
 				</View>
 				<Pagination />
 				<ItemDisplay setModal={itemModal} itemList={CTX.fetchStore.products} />

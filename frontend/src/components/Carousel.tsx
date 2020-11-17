@@ -2,8 +2,6 @@ import React, { useState, useCallback, useEffect, useRef, useContext } from "rea
 import { FlatList, Dimensions, Image, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import Constants from 'expo-constants';
 import Product from "../models/product";
-import { observer } from "mobx-react-lite";
-import { RootStoreContext } from "../stores/root-store";
 
 
 const { width: windowWidth, height: windowHeight } = Dimensions.get("window");
@@ -25,21 +23,32 @@ function Slide(props: IProps) {
 	);
 }
 
-const Carousel = observer(() => {
-	const CTX = useContext(RootStoreContext);
+
+const Carousel = () => {
+	const [products, setProducts] = useState<Product[]>([]);
 	//console.log(CTX.fetchStore.products)
 	useEffect(() => {
-		CTX.fetchStore.getAPI("name_asc", "");
+		const getAPI = async () => {
+			const response = await fetch('http://it2810-07.idi.ntnu.no:3000');
+			const data = await response.json();
+			try {
+				setProducts(data);
+			} catch (error) {
+				console.log(error);
+			}
+		};
+		getAPI();
 	}, []);
+
 	return (
-		<FlatList data={CTX.fetchStore.products} style={styles.container} contentContainerStyle={{alignItems: 'center', justifyContent: 'center' }}
+		<FlatList data={products} style={styles.container} contentContainerStyle={{alignItems: 'center', justifyContent: 'center' }}
 			renderItem={({ item }) => {
 				return(<Slide id={item.id} image={item.image_link} title={item.name} subtitle={item.description} />);
 			}}
 			pagingEnabled horizontal showsHorizontalScrollIndicator
 		/>
 	);
-});
+};
 export default Carousel;
 export const MemoizedCarousel = React.memo(Carousel);
 const styles = StyleSheet.create({
