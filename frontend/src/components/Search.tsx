@@ -413,6 +413,8 @@ const Search = observer((props: IProps) => {
 	const closeSearch = () => props.setSearched(false);
 	const [filterVisible,setFilterVisible] = useState(false);
 	const [orderByVisible,setOrderByVisible] = useState(false);
+	const searchRef = useRef(null);
+	const sortRef = useRef(null);
 	const anim = useRef(new Animated.Value(windowWidth)).current;
 	//console.log(CTX,CTX.fetchStore.products)
 	useEffect(() => {
@@ -422,6 +424,13 @@ const Search = observer((props: IProps) => {
 			useNativeDriver: true,
 		}).start();
 	}, [props.searched])
+
+	useEffect(() => {
+		CTX.fetchStore.getAPI(sortRef?.current?.value, searchRef?.current?.value);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [CTX.fetchStore.currentPage, CTX.fetchStore.pageSize, CTX.fetchStore.filterTerm]);
+
+
 	const containerStyle = {
 		flex: 1,
 		position: 'absolute',
@@ -449,7 +458,7 @@ const Search = observer((props: IProps) => {
 						<TouchableOpacity onPress={closeSearch}>
 							<Icon style={styles.inputIcon} name="search" size={20} color="#fff" />
 						</TouchableOpacity>
-						<TextInput style={styles.input} value="search.."/>
+						<TextInput style={styles.input} editable defaultValue={"search.."} ref={searchRef} onChangeText={() => CTX.fetchStore.search(sortRef?.current?.value, searchRef?.current?.value)}/>
 					</View>
 				</View>
 				<Filter orderByVisible={orderByVisible} setOrderByVisible={setOrderByVisible} filterVisible={filterVisible} setFilterVisible={setFilterVisible}/>

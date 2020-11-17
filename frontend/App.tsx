@@ -79,7 +79,6 @@ const App: FC = observer(() => {
 	const CTX = useContext(RootStoreContext);
 	const [visible, setVisible] = useState(false);
 	const [searched, setSearched] = useState(false);
-	const [currentPage, setCurrentPage] = useState(1);
 	const [modal, setModal] = useState({
 		id: "none",
 		product: null,
@@ -92,10 +91,7 @@ const App: FC = observer(() => {
 		CTX.fetchStore.setPageCount(Math.ceil(CTX.fetchStore.productsCount / CTX.fetchStore.pageSize))
 	}, [CTX.fetchStore.productsCount, CTX.fetchStore.pageSize])
 
-	useEffect(() => {
-		CTX.fetchStore.getAPI(sort, "");
-	}, [CTX.fetchStore.currentPage, CTX.fetchStore.pageSize, CTX.fetchStore.filterTerm]);
- 
+	
  	useEffect(() => {
  	   const cart = CTX.sessionStore.getCart;
 		let cookie = Cookies.get("connect.sid")||"none";

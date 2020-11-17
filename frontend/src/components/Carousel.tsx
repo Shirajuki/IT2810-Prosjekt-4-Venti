@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect, useRef, useContext } from "react";
-import { FlatList, Dimensions, Image, StyleSheet, Text, View } from 'react-native';
+import { FlatList, Dimensions, Image, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import Constants from 'expo-constants';
 import Product from "../models/product";
 import { observer } from "mobx-react-lite";
@@ -13,14 +13,15 @@ interface IProps {
 	image: string;
 	title: string;
 	subtitle: string;
+	//onClick: () => void;
 }
 function Slide(props: IProps) {
 	// console.log(props.image);
 	return (
-		<View style={styles.slide}>
-			<Image source={{ uri: props.image}} style={styles.image}/>
+		<TouchableOpacity onPress={() => console.log("TRYKKET")} style={styles.slide}>
+			<Image source={{ uri: ""+props.image+""}} style={styles.image}/>
 			<Text style={{ fontSize: 24 }}>{props.title}</Text>
-		</View>
+		</TouchableOpacity>
 	);
 }
 
@@ -33,7 +34,7 @@ const Carousel = observer(() => {
 	return (
 		<FlatList data={CTX.fetchStore.products} style={styles.container} contentContainerStyle={{alignItems: 'center', justifyContent: 'center' }}
 			renderItem={({ item }) => {
-				return(<Slide id={item.id} image={item.image_link} title={item.name} subtitle={item.description}/>);
+				return(<Slide id={item.id} image={item.image_link} title={item.name} subtitle={item.description} />);
 			}}
 			pagingEnabled horizontal showsHorizontalScrollIndicator
 		/>
@@ -62,7 +63,8 @@ const styles = StyleSheet.create({
 	},
 	image : {
 		flex: 1,
-		width: '100%',
+		width: 200,
+		height: 200,
 		resizeMode: 'contain',
 	},
 });
