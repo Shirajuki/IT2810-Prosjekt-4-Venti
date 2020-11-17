@@ -24,8 +24,8 @@ This project was developed using React Native and Expo as a framework. Expo is a
 
 ### Third party components
 
-- Icon from MaterialIcons
--
+We decided to do most of the design from scratch to get more familiar with react native. We did however incorporate some components to help us. The most prominent one is the carousel on the front page displaying the newest products. For this we used react-native-snap-carousel to create a cool parallax-effect. Other components we used were icons from react-native-vector-icons to make sure all icons look the same on all phones. Using unicode characters would not have accomplished this.
+
 
 ### Reusing old code
 
