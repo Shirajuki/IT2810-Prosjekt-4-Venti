@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
-import {CheckBox, Animated, TextInput, TouchableOpacity, FlatList, ScrollView, Dimensions, Image, StyleSheet, Text, View } from 'react-native';
+import {Alert, CheckBox, Animated, TextInput, TouchableOpacity, FlatList, ScrollView, Dimensions, Image, StyleSheet, Text, View } from 'react-native';
 import Constants from 'expo-constants';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import ItemDisplay from "./ItemDisplay";
@@ -30,6 +30,8 @@ interface IProps {
 interface IFilterWindow {
 	filterVisible: boolean;
 	setFilterVisible: (b: boolean) => void;
+    filterDone: boolean;
+    setFilterDone: (b: boolean) => void;
 }
 interface IProps2 {
 	filterVisible: boolean;
@@ -40,6 +42,7 @@ interface IProps2 {
 interface IProps3 {
 	name: string;
 	value: string;
+    type: string;
 }
 interface IProps4 {
 	orderByVisible: boolean;
@@ -50,25 +53,6 @@ interface IRadio {
 	value: string;
 	orderByValue: string;
 	setOrderByValue: (val: string) => void;
-}
-const Checkbox1 = (props: IProps3) => {
-	const [toggleCheckBox, setToggleCheckBox] = useState(false);
-	// props.value;
-	const styles = StyleSheet.create({
-		checkbox: {
-			flexDirection: 'row',
-			alignItems: 'center',
-			margin: 0,
-		}
-	});
-	return (
-		<View style={styles.checkbox}>
-			<TouchableOpacity style={{width: '100%', flexDirection: 'row', alignItems: 'center',}} onPress={() => setToggleCheckBox(!toggleCheckBox)}>
-				<CheckBox style={{marginHorizontal: 5}} disabled={false} value={toggleCheckBox} onChange={() => setToggleCheckBox(!toggleCheckBox)}/>
-				<Text style={{ fontSize: 18 }}>{props.name}</Text>
-			</TouchableOpacity>
-		</View>
-	);
 }
 const Radio = (props: IRadio) => {
 	const [toggleRadio, setToggleRadio] = useState(false);
@@ -195,8 +179,35 @@ const DropDown = (props: IProps4) => {
 		</Animated.View>
 	);
 };
+const Checkbox1 = (props: IProps3) => {
+    const CTX = useContext(RootStoreContext);
+	const [toggleCheckBox, setToggleCheckBox] = useState(false);
+	const styles = StyleSheet.create({
+		checkbox: {
+			flexDirection: 'row',
+			alignItems: 'center',
+			margin: 0,
+		}
+	});
+    const setToggle = (bool) => {
+        setToggleCheckBox(bool);
+        CTX.fetchStore.addOrRemoveFilter(`${props.type}=${props.name}`);
+        Alert.alert(JSON.stringify(CTX.fetchStore.filterTerm));
+    };
+	return (
+		<View style={styles.checkbox}>
+			<TouchableOpacity style={{width: '100%', flexDirection: 'row', alignItems: 'center',}} onPress={() => setToggle(!toggleCheckBox)}>
+				<CheckBox style={{marginHorizontal: 5}} disabled={false} value={toggleCheckBox} onChange={() => setToggle(!toggleCheckBox)}/>
+				<Text style={{ fontSize: 18 }}>{props.name}</Text>
+			</TouchableOpacity>
+		</View>
+	);
+}
 const FilterWindow = (props: IFilterWindow) => {
-	const closeWindow = () => props.setFilterVisible(false);
+	const closeWindow = () => {
+	    props.setFilterVisible(false);
+        props.setFilterDone(!props.filterDone);
+    }
 	const anim = useRef(new Animated.Value(windowWidth)).current;
 	useEffect(() => {
 		Animated.timing(anim,{
@@ -254,15 +265,9 @@ const FilterWindow = (props: IFilterWindow) => {
 			padding: 10,
 			flex: 1,
 		},
-		btnReset: {
-			backgroundColor: colors.themeColor,
-			width: '50%',
-			alignItems: 'center',
-			justifyContent: 'center',
-		},
 		btnDone: {
-			backgroundColor: colors.darkestColor,
-			width: '50%',
+			backgroundColor: colors.themeColor,
+			width: '100%',
 			alignItems: 'center',
 			justifyContent: 'center',
 		},
@@ -280,26 +285,18 @@ const FilterWindow = (props: IFilterWindow) => {
 			<View style={{height: windowHeight}}>
 				<ScrollView style={styles.windowItems}>
 					<Text style={styles.filterTitle}>Types</Text>
-					{ /* FlatList change to View, use map */}
-					<FlatList data={types()} style={styles.list}
-						renderItem={({ item }) => {
-							return <Checkbox1 name={item[0]} value={item[1]}/>;
-						}}
-					/>
+                    {types().map((item: any) => (
+                        <Checkbox1 name={item[0]} value={item[1]} type="product_type"/>
+                    ))}
 					<Text style={styles.filterTitle}>Brands</Text>
-					<FlatList data={brands()} style={styles.list}
-						renderItem={({ item }) => {
-							return <Checkbox1 name={item[0]} value={item[1]}/>;
-						}}
-					/>
+                    {brands().map((item: any) => (
+                        <Checkbox1 name={item[0]} value={item[1]} type="brand"/>
+                    ))}
 				</ScrollView>
 				<TouchableOpacity onPress={closeWindow} style={styles.windowExit}>
 					<Icon name="close" size={28} color="#000" />
 				</TouchableOpacity>
 				<View style={{width: '100%', height: '10%', flexDirection: 'row', marginBottom: Constants.statusBarHeight}}>
-					<TouchableOpacity style={styles.btnReset} onPress={closeWindow}>
-						<Text style={{color: '#fff',fontWeight: '600',}}>RESET</Text>
-					</TouchableOpacity>
 					<TouchableOpacity style={styles.btnDone} onPress={closeWindow}>
 						<Text style={{color: '#fff',fontWeight: '600',}}>DONE</Text>
 					</TouchableOpacity>
@@ -413,6 +410,7 @@ const Search = observer((props: IProps) => {
 	const CTX = useContext(RootStoreContext);
 	const closeSearch = () => props.setSearched(false);
 	const [filterVisible,setFilterVisible] = useState(false);
+    const [filterDone, setFilterDone] = useState(false);
 	const [orderByVisible,setOrderByVisible] = useState(false);
 	const searchRef = useRef(null);
 	//console.log(searchRef.current.text);
@@ -427,12 +425,11 @@ const Search = observer((props: IProps) => {
 			useNativeDriver: true,
 		}).start();
 	}, [props.searched])
-
+    
 	useEffect(() => {
-		CTX.fetchStore.getAPI(sortRef?.current?.value, searchRef?.current?.value);
+		CTX.fetchStore.getAPI("name_asc", searchRef?.current?.value);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [CTX.fetchStore.currentPage, CTX.fetchStore.pageSize, CTX.fetchStore.filterTerm]);
-
+	}, [CTX.fetchStore.currentPage, CTX.fetchStore.pageSize, filterDone]);
 
 	const containerStyle = {
 		flex: 1,
@@ -461,7 +458,7 @@ const Search = observer((props: IProps) => {
 						<TouchableOpacity onPress={closeSearch}>
 							<Icon style={styles.inputIcon} name="search" size={20} color="#fff" />
 						</TouchableOpacity>
-						<TextInput style={styles.input} editable placeholder={"search.."} ref={searchRef} value={searchTerm} onChange={(e) => setSearchTerm(e.nativeEvent.text)} onSubmitEditing={(e) => { CTX.fetchStore.search(sortRef?.current?.value, searchTerm)}} />
+						<TextInput style={styles.input} editable placeholder={"search.."} ref={searchRef} value={searchTerm} onChange={(e) => setSearchTerm(e.nativeEvent.text)} onSubmitEditing={(e) => { CTX.fetchStore.search("name_asc", searchTerm)}} />
 					</View>
 				</View>
 				<Filter orderByVisible={orderByVisible} setOrderByVisible={setOrderByVisible} filterVisible={filterVisible} setFilterVisible={setFilterVisible}/>
@@ -472,7 +469,7 @@ const Search = observer((props: IProps) => {
 				}}
 			/>
 		</View>
-		<FilterWindow filterVisible={filterVisible} setFilterVisible={setFilterVisible}/>
+		<FilterWindow filterVisible={filterVisible} setFilterVisible={setFilterVisible} filterDone={filterDone} setFilterDone={setFilterDone}/>
 	</Animated.View>
 	);
 });
