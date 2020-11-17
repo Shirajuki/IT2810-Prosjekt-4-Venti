@@ -11,7 +11,7 @@ const FetchContext = () => {
 		products: [],
 		filterTerm: [],
 		searchTerm: "",
-		orderTerm: "",
+		orderTerm: "name_asc",
 		setHidden(hidden: boolean) {
 			this.hidden = hidden;
 		},
@@ -29,34 +29,13 @@ const FetchContext = () => {
 		},
 		setFilterTerm(filterTerms: String[]) {
 			this.filterTerm = filterTerms.concat();
-			if (this.hidden) {
-				this.setHidden(false);
-			} else {
-				this.setCurrentPage(1);
-				this.getAPI(this.orderTerm, this.searchTerm);
-			}
-			
 		},
 		setSearchTerm(searchTerm: string) {
 			this.searchTerm = searchTerm;
-			if (this.hidden) {
-				this.setHidden(false);
-			} else {
-				this.setCurrentPage(1);
-				this.getAPI(this.orderTerm, this.searchTerm);
-			}
 		},
-
 		setOrderTerm(orderTerm: string) {
 			this.orderTerm = orderTerm;
-			if (this.hidden) {
-				this.setHidden(false);
-			} else {
-				this.setCurrentPage(1);
-				this.getAPI(this.orderTerm, this.searchTerm);
-			}
 		},
-
 		addOrRemoveFilter(item: String) {
 			const pos = this.filterTerm.indexOf(item);
 			const newList = this.filterTerm.concat();

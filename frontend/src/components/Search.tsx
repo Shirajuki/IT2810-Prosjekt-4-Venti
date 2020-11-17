@@ -418,11 +418,7 @@ const Search = observer((props: IProps) => {
 	const [filterVisible,setFilterVisible] = useState(false);
     const [filterDone, setFilterDone] = useState(false);
 	const [orderByVisible,setOrderByVisible] = useState(false);
-	const searchRef = useRef(null);
-	//console.log(searchRef.current.text);
-	const sortRef = useRef(null);
 	const anim = useRef(new Animated.Value(windowWidth)).current; 
-	//console.log(CTX,CTX.fetchStore.products)
 	useEffect(() => {
 		Animated.timing(anim,{
 			toValue: props.searched ? 0 : windowWidth,
@@ -430,11 +426,10 @@ const Search = observer((props: IProps) => {
 			useNativeDriver: true,
 		}).start();
 	}, [props.searched])
-    
 	useEffect(() => {
-		CTX.fetchStore.getAPI("name_asc", searchRef?.current?.value);
+		CTX.fetchStore.getAPI();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [CTX.fetchStore.currentPage, CTX.fetchStore.pageSize, filterDone]);
+	}, [CTX.fetchStore.currentPage, CTX.fetchStore.pageSize, CTX.fetchStore.orderTerm, CTX.fetchStore.searchTerm, filterDone]);
 
 	const containerStyle = {
 		flex: 1,
