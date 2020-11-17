@@ -51,7 +51,7 @@ const Modal = observer((props: IProps) => {
         right: 0,
         width: '100%',
         height: windowHeight,
-        backgroundColor: '#fff',
+        backgroundColor: "#e0cff2",
         margin: 0,
         padding: 0,
         marginBottom: Constants.statusBarHeight,
@@ -63,64 +63,81 @@ const Modal = observer((props: IProps) => {
         },
         reviewWrapper: {
             marginVertical: 10,  
-            backgroundColor: 'rgba(0,0,0,.1)',
+            backgroundColor: 'rgba(143,115,177,.3)',
             padding: 10,
             borderRadius: 10,
         },
         nameInput: {
             width: '100%',
-            backgroundColor: 'rgba(0,0,0,.1)',
+            backgroundColor: 'rgba(143,115,177, 0.9)',
             padding: 5,
-            marginVertical: 5,  
+            marginVertical: 5, 
+            color:'white' 
         },
         reviewInput: {
             width: '100%',
-            backgroundColor: 'rgba(0,0,0,.1)',
+            backgroundColor: 'rgba(143,115,177, 0.9)',
             padding: 5,
             marginBottom: 5,  
+            color:'white'
+        },
+        reviewButton: {
+            backgroundColor: colors.themeColor, 
+            padding: 10, 
+            justifyContent: 'center', 
+            alignItems: 'center'
         },
         review: {
-            marginVertical: 10,  
-            backgroundColor: 'rgba(0,0,0,.1)',
+            marginVertical: 10, 
             padding: 10,
-            borderRadius: 10,
+            borderBottomColor:'black',
+            borderBottomWidth:1
+        },
+        reviewUser: {
+            paddingTop: 5,
+            width: '40%',
+            fontWeight:'700'
+        },
+        reviewComment: {
+            paddingTop: 5,
+			width: '60%',
         },
     });
     // Strict mode error here v
     return (
 		<Animated.View style={{ ...containerStyle, transform: [{translateX: anim}] }}>
             <View style={{height: '8%', justifyContent: 'center'}}>
-                <TouchableOpacity style={styles.closeButton} data-cy="close-button" onPress={() => closeModal()}>
-                    <Icon name="arrow-back" size={30} color={colors.darkestColor} style={styles.searchExit}/>
+                <TouchableOpacity onPress={() => closeModal()}>
+                    <Icon name="arrow-forward" size={30} color={colors.darkestColor} style={{padding:5}}/>
                 </TouchableOpacity>
             </View>
             <ScrollView>
-                <Items id={props.modal.product?.id} img={product?.image_link} name={product?.name} description={product?.description} rating={Number(product?.rating)} price={product?.price} onClick={() => void(0)} type="modal"/>
+                <Items id={props.modal.product?.id} img={product?.image_link} name={product?.name} description={product?.description} brand={product?.brand} price={product?.price} onClick={() => void(0)} type="modal"/>
                 <View>
                 </View>
                 <View style={styles.reviews}>
-                    <Text style={{fontSize: 30, fontWeight: '900', color: colors.themeColor}}>Reviews:</Text>
+                    <Text style={{fontSize: 28, fontWeight: '900', color: colors.themeColor}}>Reviews:</Text>
+                    <Text style={{fontSize: 20, fontWeight: '400', color: colors.themeColor}}>Write a review</Text>
                     <View style={styles.reviewWrapper}>
-                        <TextInput style={styles.nameInput} editable defaultValue={"Name"} ref={nameRef} onChangeText={() => console.log("a")}/>
+                        <TextInput style={styles.nameInput} editable defaultValue={"Name..."} ref={nameRef} onChangeText={() => console.log("a")}/>
                         <TextInput style={styles.reviewInput} editable defaultValue={"Write your review here..."} ref={messageRef} onChangeText={() => console.log("a")}/>
-                        <TouchableOpacity style={{backgroundColor: 'rgba(0,0,0,.5)', padding: 10, justifyContent: 'center', alignItems: 'center'}} onPress={() => post()} data-cy="send-area">
-                            <Text style={{color: '#fff',}}>Send</Text>
+                        <TouchableOpacity style={styles.reviewButton} onPress={() => post()}>
+                            <Text style={{color: '#fff'}}>Send</Text>
                         </TouchableOpacity>
                     </View>
+                    <Text style={{fontSize: 20, fontWeight: '500', color: colors.themeColor}}>Customer Reviews</Text>
                     {CTX.reviewStore.reviews.map((review: Review) => (
-                        <View style={styles.review} data-cy="view-reviews">
+                        <View style={styles.review}>
                             <Text style={styles.reviewUser}>{review.name}</Text>
-                            <View style={styles.review}>
-                                <Text style={styles.reviewComment}>{review.reviewText}</Text>
-                            </View>
+                            <Text style={styles.reviewComment}>{review.reviewText}</Text>
                         </View>
                     ))}
                 </View>
             </ScrollView>
             <View style={{height: '10%', marginBottom: Constants.statusBarHeight}}>
-                <TouchableOpacity style={styles.closeButton} data-cy="close-button" onPress={() => Alert.alert("Added to cart!")}>
+                <TouchableOpacity onPress={() => Alert.alert("Added to cart!")}>
                     <View style={{flexDirection: 'row', height: '100%', backgroundColor: colors.themeColor, alignItems: 'center', justifyContent: 'center'}}>
-                       <Icon name="shopping-cart" size={28} color={colors.lightColor} style={styles.searchExit}/>
+                       <Icon name="shopping-cart" size={28} color={colors.lightColor}/>
                        <Text style={{fontWeight: '900', fontSize: 18, padding: 5, color: colors.lightColor}}>Add to Cart</Text>
                     </View>
                 </TouchableOpacity>

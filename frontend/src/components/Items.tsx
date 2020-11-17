@@ -57,20 +57,47 @@ const Items = observer((props: IProps) => {
 			fontWeight: '600',
 			color: colors.darkestColor,
 		},
+		imgModal: {
+			resizeMode: "contain", 
+			flex: 1,
+			borderRadius: 8,
+		},
+		modalImgWrapper: {
+			width: '100%', 
+			height: 400, 
+			justifyContent: 'center', 
+			alignContent: 'center'
+		},
+		modalInfo: {
+			padding: 10, 
+			marginHorizontal: 10, 
+			marginTop: 10, 
+			backgroundColor: colors.lightColor, 
+			borderRadius: 10
+		},
+		modalName:{
+			fontSize: 20, 
+			color: colors.darkestColor
+		},
+		modalPrice: {
+			fontSize: 18, 
+			color: colors.darkColor 
+		},
+		modalDesc: {
+			paddingTop:10
+		}
 	});	
 	switch (props.type) {
 		case "modal":
 			return (
-				<View >
-					<View style={{width: '100%', backgroundColor: colors.darkColor, height: 400, justifyContent: 'center', alignContent: 'center'}}>
-						<Image source={{uri: ""+props.img+""}} style={{resizeMode: "contain", flex: 1,}}/>
+				<View>
+					<View style={styles.modalImgWrapper}>
+						<Image source={{uri: ""+props.img+""}} style={styles.imgModal}/>
 					</View>
-					<View style={{padding: 10, marginHorizontal: 10, marginTop: 10, backgroundColor: colors.lightColor, borderRadius: 10}}>
-						<Text style={{fontSize: 20, color: colors.darkestColor}}>{props.name}</Text>
-						<Text style={{fontSize: 18, color: colors.darkColor }}>{props.price}</Text>
-					</View>
-					<View style={{padding: 10, margin: 10, backgroundColor: colors.lightColor, borderRadius: 10}}>
-						<Text >{props.description}</Text>
+					<View style={styles.modalInfo}>
+						<Text style={styles.modalName}>{props.name}</Text>
+						<Text style={styles.modalPrice}>${props.price}</Text>
+						<Text style={styles.modalDesc}>{props.description}</Text>
 					</View>
 				</View>
 			);
