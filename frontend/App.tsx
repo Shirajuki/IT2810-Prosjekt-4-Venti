@@ -123,7 +123,7 @@ const App: FC = observer(() => {
 				<View style={{ height: 100, width: '100%', alignItems: 'center', backgroundColor: colors.themeColor, marginTop:10 }}>
 					<Text style={styles.splashText3}>Team 7</Text>
 				</View>
-			</View>
+			</ScrollView>
 			<ShoppingCart visible={visible} setVisible={setVisible} />
 			<Search setModal={itemModal} searched={searched} setSearched={setSearched} />
 			<Modal modal={modal} setModal={itemModal}/>

@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect, useRef, useContext } from "react";
-import { Alert, FlatList, Dimensions, Image, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { FlatList, Dimensions, Image, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import Constants from 'expo-constants';
 import Product from "../models/product";
 
@@ -11,31 +11,39 @@ interface IProps {
 	image: string;
 	title: string;
 	subtitle: string;
-    product: Product;
+	//onClick: () => void;
 }
 function Slide(props: IProps) {
 	// console.log(props.image);
 	return (
-		<TouchableOpacity onPress={() => Alert.alert(String(props.id) + String(props.product))} style={styles.slide}>
-            <View style={styles.slideWrapper}>
-                <Image source={{ uri: ""+props.image+""}} style={styles.image}/>
-                <Text style={{ fontSize: 24, width: '100%', }}>{props.title}</Text>
-            </View>
+		<TouchableOpacity onPress={() => console.log("TRYKKET")} style={styles.slide}>
+			<Image source={{ uri: ""+props.image+""}} style={styles.image}/>
+			<Text style={{ fontSize: 24 }}>{props.title}</Text>
 		</TouchableOpacity>
 	);
 }
-interface ICarousel {
-    onClick: (id: string, product?: Product) => void;
-}
-const Carousel = observer(() => {
-	const CTX = useContext(RootStoreContext);
-    useEffect(() => {
-        //CTX.fetchStore.getAPI("name_asc", "");
-    },[]);
+
+
+const Carousel = () => {
+	const [products, setProducts] = useState<Product[]>([]);
+	//console.log(CTX.fetchStore.products)
+	useEffect(() => {
+		const getAPI = async () => {
+			const response = await fetch('http://it2810-07.idi.ntnu.no:3000');
+			const data = await response.json();
+			try {
+				setProducts(data);
+			} catch (error) {
+				console.log(error);
+			}
+		};
+		getAPI();
+	}, []);
+
 	return (
 		<FlatList data={products} style={styles.container} contentContainerStyle={{alignItems: 'center', justifyContent: 'center' }}
 			renderItem={({ item }) => {
-				return(<Slide id={item.id} image={item.image_link} title={item.name} subtitle={item.description} product={item} />);
+				return(<Slide id={item.id} image={item.image_link} title={item.name} subtitle={item.description} />);
 			}}
 			pagingEnabled horizontal showsHorizontalScrollIndicator
 		/>
@@ -59,16 +67,13 @@ const styles = StyleSheet.create({
 	slide: {
 		height: '100%',
 		width: windowWidth/10 * 9,
+		justifyContent: "center",
+		alignItems: "center",
 	},
-    slideWrapper: {
-        height: '100%',
-		width: '82%',
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
 	image : {
-        flex: 1,
-        width: 200,
+		flex: 1,
+		width: 200,
+		height: 200,
 		resizeMode: 'contain',
 	},
 });
