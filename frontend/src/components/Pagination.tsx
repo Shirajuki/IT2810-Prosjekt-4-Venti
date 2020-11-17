@@ -2,6 +2,10 @@ import React, { FC, useContext, useState, useEffect } from "react";
 import { Dimensions, TouchableOpacity, Image, StyleSheet, Text, TextInput, View, ScrollView } from 'react-native';
 import { RootStoreContext } from "../stores/root-store";
 
+/* Allows dynamic fetching from the database. Uses the known number of elements of elements
+and divides them by pages. The functions below checks how many pages there are to determine
+how much one can jump forward or backwards.*/
+
 function Pagination () {
             const CTX = useContext(RootStoreContext);
             return (<View style={styles.wrapper}>

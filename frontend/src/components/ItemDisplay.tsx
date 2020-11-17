@@ -8,6 +8,8 @@ interface IProps {
 	setModal: (id:string, product: Product) => void;
 	itemList: Product[];
 }
+/*Displays all the products received from the database with all filters and sorting applied.
+Gets the products from out global list of products and displays them underneath the carousel*/
 
 const ItemDisplay = (props: IProps) => {
 	const CTX = useContext(RootStoreContext);

@@ -7,6 +7,9 @@ import { RootStoreContext } from "../stores/root-store";
 
 const { width: windowWidth, height: windowHeight } = Dimensions.get("window");
 
+/* Records which filters that have been pressed and passes them to the APi call through
+our global variables.*/
+
 const colors = {
 	themeColor: 'darkslateblue',
 	darkColor: '#8364a9',
@@ -194,7 +197,7 @@ const Filter = (props: IProps2) => {
 	return(
 		<View style={styles.filterDiv}>
 			<TouchableOpacity style={styles.searchSort} onPress={() => props.setOrderByVisible(!props.orderByVisible)}>
-				<Text>Sort by: A-Z</Text>
+				<Text>Sort by: </Text>
 			</TouchableOpacity>
 			<TouchableOpacity onPress={openFilter} style={styles.searchFilter}>
 				<Icon name="filter-list" size={28} color="#000" />

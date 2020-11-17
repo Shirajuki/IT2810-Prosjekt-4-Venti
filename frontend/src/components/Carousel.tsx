@@ -12,6 +12,8 @@ interface IProps {
 	index: number;
 }
 
+/* Uses react-native-snap-components to create a parallax carousel which passes it's
+information to the modal component defined in App on click*/
 
 const MyCarousel =({openModal})=> {
 

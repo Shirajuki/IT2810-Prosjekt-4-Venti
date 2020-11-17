@@ -10,6 +10,8 @@ import {Filter, FilterWindow} from "./Filter";
 
 const { width: windowWidth, height: windowHeight } = Dimensions.get("window");
 
+/* Uses a TextInput to get a searchTerm that is passed through to the API call through CTX*/
+
 const colors = {
 	themeColor: 'darkslateblue',
 	darkColor: '#8364a9',

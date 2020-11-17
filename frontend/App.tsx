@@ -29,7 +29,7 @@ interface IProps {
 	setVisible: (b: boolean) => void;
 	setSearched: (b: boolean) => void;
 }
-// #SPLASH
+// Header with icons from react-native-vector-icons
 const Splash = (props: IProps) => {
 	const styles = StyleSheet.create({
 		inputIcon: {
@@ -66,7 +66,11 @@ const Splash = (props: IProps) => {
 		</View>
 	);
 }
-// #APP
+/* Main app code. Calls our global variables with CTX and sets modals for displaying 
+individual products with setModal.
+The useEffect with PageCount and productscount gives a basis for pagination
+All other components are described in their respective files
+*/
 const App: FC = observer(() => {
 	const CTX = useContext(RootStoreContext);
 	const [visible, setVisible] = useState(false);

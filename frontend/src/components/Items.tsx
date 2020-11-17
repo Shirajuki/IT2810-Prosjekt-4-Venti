@@ -16,6 +16,7 @@ interface IProps {
 	type: string;
 }
 
+/* Adds separate styling for different types of items i.e modals, plain items etc*/
 const Items = observer((props: IProps) => {
 	const CTX = useContext(RootStoreContext);
 	const product = useAsObservableSource(props);

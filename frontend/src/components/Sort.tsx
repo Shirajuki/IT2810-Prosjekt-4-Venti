@@ -6,6 +6,8 @@ import { RootStoreContext } from "../stores/root-store";
 
 const { width: windowWidth, height: windowHeight } = Dimensions.get("window");
 
+/* Let's a user choose between predefined sorting terms that are passed through to the API Call*/
+
 const colors = {
 	themeColor: 'darkslateblue',
 	darkColor: '#8364a9',

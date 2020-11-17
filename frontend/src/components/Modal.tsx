@@ -9,6 +9,9 @@ import {observer, useAsObservableSource } from 'mobx-react-lite';
 import { RootStoreContext } from "../stores/root-store";
 const { width: windowWidth, height: windowHeight } = Dimensions.get("window");
 
+//Displays induvidual products with reviews received from the database and with the option of ading
+//the item to cart
+
 const colors = {
     themeColor: 'darkslateblue',
     darkColor: '#8364a9',
