@@ -12,7 +12,7 @@ import { observer } from "mobx-react-lite";
 import Cookies from "js-cookie";
 import { RootStoreContext } from "./src/stores/root-store";
 import RootStore from "./src/stores/root-store";
-//import Modal from "./src/components/Modal";
+import Modal from "./src/components/Modal";
 import Pagination from "./src/components/Pagination";
 
 const { width: windowWidth, height: windowHeight } = Dimensions.get("window");
@@ -103,7 +103,7 @@ const App: FC = observer(() => {
 
 	return (
 		<View style={styles.container}>
-			<StatusBar backgroundColor={'#fff'} />
+			<StatusBar />
 			<Splash setVisible={setVisible} setSearched={setSearched} />
 			<ScrollView style={styles.scrollView}>
 				<View style={styles.front}>
@@ -123,10 +123,10 @@ const App: FC = observer(() => {
 				<View style={{ height: 100, width: '100%', alignItems: 'center', backgroundColor: colors.themeColor, marginTop:10 }}>
 					<Text style={styles.splashText3}>Team 7</Text>
 				</View>
-			</ScrollView>
-			{/*<Modal modal={modal} setModal={itemModal}/>*/}
+			</View>
 			<ShoppingCart visible={visible} setVisible={setVisible} />
 			<Search setModal={itemModal} searched={searched} setSearched={setSearched} />
+			<Modal modal={modal} setModal={itemModal}/>
 		</View>
 	);
 })
