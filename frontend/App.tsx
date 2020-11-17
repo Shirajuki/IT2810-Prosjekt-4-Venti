@@ -12,7 +12,7 @@ import { observer } from "mobx-react-lite";
 import Cookies from "js-cookie";
 import { RootStoreContext } from "./src/stores/root-store";
 import RootStore from "./src/stores/root-store";
-import Modal from "./src/components/Modal";
+//import Modal from "./src/components/Modal";
 import Pagination from "./src/components/Pagination";
 
 const { width: windowWidth, height: windowHeight } = Dimensions.get("window");
@@ -79,6 +79,7 @@ const App: FC = observer(() => {
 	const CTX = useContext(RootStoreContext);
 	const [visible, setVisible] = useState(false);
 	const [searched, setSearched] = useState(false);
+	const [currentPage, setCurrentPage] = useState(1);
 	const [modal, setModal] = useState({
 		id: "none",
 		product: null,
