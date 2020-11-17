@@ -13,7 +13,7 @@ import Cookies from "js-cookie";
 import { RootStoreContext } from "./src/stores/root-store";
 import RootStore from "./src/stores/root-store";
 import Modal from "./src/components/Modal";
-const Pagination = require("react-native-pagination");
+import Pagination from "./src/components/Pagination";
 
 const { width: windowWidth, height: windowHeight } = Dimensions.get("window");
 const assets = {
@@ -79,7 +79,6 @@ const App: FC = observer(() => {
 	const CTX = useContext(RootStoreContext);
 	const [visible, setVisible] = useState(false);
 	const [searched, setSearched] = useState(false);
-	const [currentPage, setCurrentPage] = useState(1);
 	const [modal, setModal] = useState({
 		id: "none",
 		product: null,
@@ -121,16 +120,7 @@ const App: FC = observer(() => {
 				<View style={{ height: 400, width: '100%' }}>
 					<MemoizedCarousel />
 				</View>
-				<View>
-				{CTX.fetchStore.currentPage > 0 ? <TouchableOpacity onPress={() => CTX.fetchStore.setCurrentPage(CTX.fetchStore.currentPage -= 1)}><Text>Previous</Text></TouchableOpacity> : null}
-				{CTX.fetchStore.currentPage > 1 ? <TouchableOpacity onPress={() => CTX.fetchStore.setCurrentPage(CTX.fetchStore.currentPage -= 2)}><Text>{CTX.fetchStore.currentPage - 1}</Text></TouchableOpacity> : null}
-				{CTX.fetchStore.currentPage > 0 ? <TouchableOpacity onPress={() => CTX.fetchStore.setCurrentPage(CTX.fetchStore.currentPage -= 1)}><Text>{CTX.fetchStore.currentPage}</Text></TouchableOpacity> : null}
-				<Text>{CTX.fetchStore.currentPage + 1}</Text>
-				<Text>{CTX.fetchStore.pageCount}</Text>
-				{CTX.fetchStore.currentPage < CTX.fetchStore.pageCount - 1 ? <TouchableOpacity onPress={() => CTX.fetchStore.setCurrentPage(CTX.fetchStore.currentPage += 1)}><Text>{CTX.fetchStore.currentPage + 2}</Text></TouchableOpacity> : null}
-				{CTX.fetchStore.currentPage < CTX.fetchStore.pageCount - 2? <TouchableOpacity onPress={() => CTX.fetchStore.setCurrentPage(CTX.fetchStore.currentPage += 2)}><Text>{CTX.fetchStore.currentPage + 3}</Text></TouchableOpacity> : null}
-				{CTX.fetchStore.currentPage != CTX.fetchStore.pageCount - 1? (<TouchableOpacity onPress={() => CTX.fetchStore.setCurrentPage(CTX.fetchStore.currentPage += 1)}>Next</TouchableOpacity>) : null}
-				</View>
+				<Pagination />
 				<ItemDisplay setModal={itemModal} itemList={CTX.fetchStore.products} />
 			</ScrollView>
 			<View style={{ height: 100, width: '100%', alignItems: 'center', backgroundColor: colors.themeColor }}>
