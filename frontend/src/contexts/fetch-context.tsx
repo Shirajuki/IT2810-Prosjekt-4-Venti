@@ -10,6 +10,8 @@ const FetchContext = () => {
 		productsCount: 0,
 		products: [],
 		filterTerm: [],
+		searchTerm: "",
+		orderTerm: "",
 		setHidden(hidden: boolean) {
 			this.hidden = hidden;
 		},
@@ -27,14 +29,34 @@ const FetchContext = () => {
 		},
 		setFilterTerm(filterTerms: String[]) {
 			this.filterTerm = filterTerms.concat();
-		},
-		search(sortRefVal: string, searchRefVal: string) {
 			if (this.hidden) {
 				this.setHidden(false);
 			} else {
-				this.getAPI(sortRefVal, searchRefVal);
+				this.setCurrentPage(1);
+				this.getAPI(this.orderTerm, this.searchTerm);
+			}
+			
+		},
+		setSearchTerm(searchTerm: string) {
+			this.searchTerm = searchTerm;
+			if (this.hidden) {
+				this.setHidden(false);
+			} else {
+				this.setCurrentPage(1);
+				this.getAPI(this.orderTerm, this.searchTerm);
 			}
 		},
+
+		setOrderTerm(orderTerm: string) {
+			this.orderTerm = orderTerm;
+			if (this.hidden) {
+				this.setHidden(false);
+			} else {
+				this.setCurrentPage(1);
+				this.getAPI(this.orderTerm, this.searchTerm);
+			}
+		},
+
 		addOrRemoveFilter(item: String) {
 			const pos = this.filterTerm.indexOf(item);
 			const newList = this.filterTerm.concat();
@@ -45,10 +67,10 @@ const FetchContext = () => {
 			}
 			this.setFilterTerm(newList);
 		},
-		async getAPI(sortRefVal: string, searchRefVal: string) {
-			let url: string = `http://it2810-07.idi.ntnu.no:3000/?pageOffset=${this.currentPage}&pageSize=${this.pageSize}&sortTerm=${sortRefVal}`;
+		async getAPI() {
+			let url: string = `http://it2810-07.idi.ntnu.no:3000/?pageOffset=${this.currentPage}&pageSize=${this.pageSize}&sortTerm=${this.orderTerm}`;
 			if (this.filterTerm.length > 0) url += `&filterTerm=${JSON.stringify(this.filterTerm)}`;
-			if (searchRefVal) url += `&searchTerm=${searchRefVal}`;
+			if (this.searchTerm) url += `&searchTerm=${this.searchTerm}`;
 			const response = await fetch(url,{
 				method: 'GET',
 				mode: 'cors',
