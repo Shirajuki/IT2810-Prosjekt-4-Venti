@@ -90,7 +90,6 @@ const SessionContext = () => {
 					credentials: 'include',
 				});
 				const data = await response.json();
-				//console.log(data);
 				try {
 					this.setCart(data[0]);
 					this.setCartProduct(data[1]);
