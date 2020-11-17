@@ -28,6 +28,7 @@
     "react-native-elements": "^3.0.0-alpha.1",
     "react-native-pagination": "^1.5.5",
     "react-native-platform-searchbar": "^1.0.2",
+    "react-native-snap-carousel": "^3.9.1",
     "react-native-vector-icons": "^7.1.0",
     "react-native-web": "~0.13.12",
     "react-navigation": "^4.4.3",
@@ -40,6 +41,7 @@
     "@types/react": "~16.9.35",
     "@types/react-dom": "~16.9.8",
     "@types/react-native": "~0.63.2",
+    "@types/react-native-snap-carousel": "^3.8.2",
     "@types/react-paginate": "^6.2.1",
     "typescript": "~3.9.5"
   },

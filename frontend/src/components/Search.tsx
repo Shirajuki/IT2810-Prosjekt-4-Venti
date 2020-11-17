@@ -23,7 +23,7 @@ interface IModal {
 interface IProps {
 	searched: boolean;
 	setSearched: (b: boolean) => void;
-    setModal: ({}: IModal) => void; 
+    setModal: (id: string,	product: Product) => void; 
 }
 
 const Search = observer((props: IProps) => {

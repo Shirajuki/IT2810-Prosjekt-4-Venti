@@ -2,7 +2,7 @@ import React, { FC, useContext, useState, useEffect } from "react";
 import { StatusBar } from 'expo-status-bar';
 import { Dimensions, TouchableOpacity, Image, StyleSheet, Text, TextInput, View, ScrollView } from 'react-native';
 import Constants from 'expo-constants';
-import Carousel, { MemoizedCarousel } from './src/components/Carousel';
+import ProductCarousel from './src/components/Carousel';
 import ShoppingCart from './src/components/ShoppingCart';
 import Search from './src/components/Search';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -102,11 +102,10 @@ const App: FC = observer(() => {
 					<View style={{ flex: 1, width: '100%', top: 70, left: -60, justifyContent: 'center', alignItems: 'center', position: 'absolute' }}>
 						<Text style={styles.splashText}>A wonderful serenity has taken</Text>
 						<Text style={styles.splashText2}>possession of my entire soul.</Text>
-						<Text style={styles.splashText}>{CTX.sessionStore.session?.sessionID || "none"}</Text>
 					</View>
 				</View>
 				<View style={{ height: 400, width: '100%' }}>
-					<Carousel />
+					<ProductCarousel openModal={itemModal} />
 				</View>
 				<Pagination />
 				<ItemDisplay setModal={itemModal} itemList={CTX.fetchStore.products} />

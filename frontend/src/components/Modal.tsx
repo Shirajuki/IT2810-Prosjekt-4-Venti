@@ -26,7 +26,6 @@ const Modal = observer((props: IProps) => {
 	const messageRef = useRef(null);
 	const nameRef = useRef(null);
 	const [stars, setStars] = useState(Number);
-	const [rating, setRating] = useState(0);
     const closeModal = () => {
         props.setModal('none', null);
         // Alert.alert(String(props.modal.product));
@@ -49,8 +48,11 @@ const Modal = observer((props: IProps) => {
         position: 'absolute',
         top: 0,
         right: 0,
+        left: 0,
+        bottom: 0,
         width: '100%',
         height: windowHeight,
+        alignSelf:'flex-end',
         backgroundColor: '#fff',
         margin: 0,
         padding: 0,
