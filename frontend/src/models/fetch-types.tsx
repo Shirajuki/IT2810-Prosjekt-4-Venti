@@ -18,5 +18,5 @@ export type FetchStoreSchema = {
 	setSearchTerm: (searchTerm: String) => void;
 	setOrderTerm: (orderTerm: String) => void;
 	addOrRemoveFilter: (item: String) => void;
-	getAPI: (sortRefVal: string, searchRefVal: string) => Promise<void>,
+	getAPI: () => Promise<void>
 }
