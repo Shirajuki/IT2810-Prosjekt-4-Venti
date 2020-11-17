@@ -11,7 +11,6 @@ import {Filter, FilterWindow} from "./Filter";
 const { width: windowWidth, height: windowHeight } = Dimensions.get("window");
 
 /* Uses a TextInput to get a searchTerm that is passed through to the API call through CTX*/
-
 const colors = {
 	themeColor: 'darkslateblue',
 	darkColor: '#8364a9',
@@ -27,7 +26,6 @@ interface IProps {
 	setSearched: (b: boolean) => void;
     setModal: (id: string,	product: Product) => void; 
 }
-
 const Search = observer((props: IProps) => {
 	const CTX = useContext(RootStoreContext);
 	const closeSearch = () => props.setSearched(false);

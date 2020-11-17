@@ -1,7 +1,7 @@
-import React, { useContext } from "react";
-import { Image, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
-import { ImBin } from "react-icons/im";
+import React, { ReactNode, useContext } from "react";
+import { Alert, FlatList, Dimensions, Image, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { RootStoreContext } from "../stores/root-store";
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import { observer, useAsObservableSource } from "mobx-react-lite"
 
 //Declares type of title
@@ -15,7 +15,6 @@ interface IProps {
 	price: string;
 	type: string;
 }
-
 /* Adds separate styling for different types of items i.e modals, plain items etc*/
 const Items = observer((props: IProps) => {
 	const CTX = useContext(RootStoreContext);
@@ -86,7 +85,20 @@ const Items = observer((props: IProps) => {
 		},
 		modalDesc: {
 			paddingTop:10
-		}
+		},
+        itemAdd: {
+            padding: 5,
+            margin: 5,
+            width: 30,
+            height: 30,
+            justifyContent: 'center',
+            alignItems: 'center',
+            backgroundColor: 'rgba(0,0,0,.1)',
+        },
+        itemCount: {
+            padding: 5,
+            margin: 5,
+        },
 	});	
 	switch (props.type) {
 		case "modal":
@@ -103,29 +115,32 @@ const Items = observer((props: IProps) => {
 				</View>
 			);
 		case "cart":
-			return (
-				<View >
-					<View >
-						<Image source={{uri: ""+props.img+""}} style={{resizeMode: "contain", width: 400, height: 400}}/>
-					</View>
-					<View>
-						<Text >{props.name}</Text>
-						<View >
-							<TouchableOpacity  onPress={() => CTX.sessionStore.editCart(Number(props.id), false)}>
-								<Text>-</Text>
-							</TouchableOpacity>
-							<Text>{CTX.sessionStore.productCount(Number(props.id))}</Text>
-							<TouchableOpacity  onPress={() => CTX.sessionStore.editCart(Number(props.id), true)}>
-								<Text>+</Text>
-							</TouchableOpacity>
-						</View>
-					</View>
-					<View>
-						<ImBin onClick={() => CTX.sessionStore.removeCart(Number(props.id))}/>
-						<Text >{props.price}</Text>
+		return (
+            <View style={styles.itemDisplay}>
+				<View style={styles.imgWrapper}>
+					<Image source={{uri: ""+props.img+""}} style={styles.img}/>
+				</View>
+				<View style={styles.itemInfo}>
+					<Text numberOfLines={2} style={styles.itemName}>{props.name}</Text>
+                    <Text style={styles.itemPrice}>{`${props.price}$`}</Text>
+					<View style={{flexDirection: 'row'}}>
+                        <TouchableOpacity style={styles.itemAdd} onPress={() => CTX.sessionStore.editCart(Number(props.id), false)}>
+                            <Text>-</Text>
+                        </TouchableOpacity>
+                        <Text style={styles.itemCount}>{CTX.sessionStore.productCount(Number(props.id))}</Text>
+                        <TouchableOpacity style={styles.itemAdd} onPress={() => CTX.sessionStore.editCart(Number(props.id), true)}>
+                            <Text>+</Text>
+                        </TouchableOpacity>
 					</View>
 				</View>
-			);
+                <TouchableOpacity style={{position: 'absolute', bottom: 0, right: 0,}} onPress={() => {
+                    CTX.sessionStore.deleteCart(Number(props.id));
+                    Alert.alert("Deleted product from cart!");
+                }}>
+                     <Icon size={28} color={colors.darkestColor} name="delete" />
+                </TouchableOpacity>
+			</View>
+		);
 		case "search":
 			return(
 				<TouchableOpacity onPress={props.onClick} style={{marginTop: 15, marginBottom: 15, padding:5}}>

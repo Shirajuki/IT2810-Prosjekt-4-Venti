@@ -1,5 +1,6 @@
 import Product from "../models/product"
 import { useLocalObservable } from "mobx-react-lite";
+import {AsyncStorage, Alert} from 'react-native';
 
 const SessionContext = () => {
 	const store = useLocalObservable(() => ({
@@ -7,8 +8,8 @@ const SessionContext = () => {
 		cartProduct: [],
 		session: { sessionID: "none" },
 		cartActive: false,
-		setCart(sessionId: string) {
-			this.cart = sessionId;
+		setCart(cartString: string) {
+			this.cart = cartString;
 		},
 		setCartProduct(productArr: Product[]) {
 			this.cartProduct = productArr.concat();
@@ -29,11 +30,6 @@ const SessionContext = () => {
 			}
 		},
 		addCart(productId: number) {
-			fetch('http://it2810-07.idi.ntnu.no:3000/editCart/'+productId,{
-				method: 'POST',
-				mode: 'cors',
-				credentials: 'include',
-			})
 			const nCart = JSON.parse(this.cart);
 			let exists: boolean = false;
 			for (const map of nCart) {
@@ -43,18 +39,15 @@ const SessionContext = () => {
 					break;
 				}
 			}
+			this.setCart(JSON.stringify(nCart));
 			if (!exists) {
 				nCart.push([String(productId),1]);
-				this.getCart();
+			    this.setCart(JSON.stringify(nCart));
 			}
-			this.setCart(JSON.stringify(nCart));
+            this.getCart();
+            this.getCart();
 		},
 		removeCart(productId: number) {
-			fetch('http://it2810-07.idi.ntnu.no:3000/removeCart/'+productId,{
-				method: 'POST',
-				mode: 'cors',
-				credentials: 'include',
-			})
 			const nCart = JSON.parse(this.cart);
 			let exists: boolean = false;
 			for (const map of nCart) {
@@ -71,11 +64,14 @@ const SessionContext = () => {
 			}
 		},
 		deleteCart(productId: number) {
-			fetch('http://it2810-07.idi.ntnu.no:3000/deleteCart/'+productId,{
-				method: 'POST',
-				mode: 'cors',
-				credentials: 'include',
-			})
+			const nCart = JSON.parse(this.cart);
+            const nCart2 = [];
+			for (const map of nCart) {
+				if (Number(map[0]) !== productId) {
+                    nCart2.push(map)
+				}
+			}
+			this.setCart(JSON.stringify(nCart2));
 			this.getCart();
 		},
 		setCartActive(active: boolean) {
@@ -84,7 +80,8 @@ const SessionContext = () => {
 		},
 		getCart() {
 			const getAPI = async () => {
-				const response = await fetch("http://it2810-07.idi.ntnu.no:3000/getCart",{
+                await AsyncStorage.setItem('cart', JSON.stringify(this.cart));
+				const response = await fetch("http://it2810-07.idi.ntnu.no:3000/getCart?cart="+this.cart,{
 					method: 'GET',
 					mode: 'cors',
 					credentials: 'include',

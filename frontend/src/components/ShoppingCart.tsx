@@ -1,7 +1,10 @@
-import React, { useState, useCallback, useEffect, useRef } from "react";
+import React, { useContext, useState, useCallback, useEffect, useRef } from "react";
 import { Animated, TouchableOpacity, Alert, FlatList, ScrollView, Dimensions, StyleSheet, Text, View } from 'react-native';
 import Constants from 'expo-constants';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import Items from './Items'
+import {observer} from 'mobx-react-lite';
+import { RootStoreContext } from "../stores/root-store";
 
 const { width: windowWidth, height: windowHeight } = Dimensions.get("window");
 
@@ -15,7 +18,8 @@ interface IProps {
 	visible: boolean;
 	setVisible: (b: boolean) => void;
 }
-export default function ShoppingCart(props: IProps) {
+const ShoppingCart = observer((props: IProps) => {
+    const CTX = useContext(RootStoreContext)
 	const closeCart = () => props.setVisible(false);
 	const anim = useRef(new Animated.Value(windowWidth)).current;
 	useEffect(() => {
@@ -45,21 +49,24 @@ export default function ShoppingCart(props: IProps) {
 				<Icon name="shopping-cart" size={28} color="#000" />
 				<Text style={{ fontSize: 20, fontWeight: '600'}}>Handlekurv</Text>
 				<TouchableOpacity onPress={closeCart} style={styles.cartExit}>
-					<Icon  name="close" size={28} color="#000" />
+					<Icon name="close" size={28} color="#000" />
 				</TouchableOpacity>
 			</View>
 			<ScrollView style={styles.cartItems}>
-				
+                {CTX.sessionStore.cartProduct.map((item: any) => (
+					<Items key={item.id+""} id={item.id} img={item.image_link} name={item.name} description={item.description} rating={item.rating} price={item.price} type="cart" />
+                ))}				
 			</ScrollView>
 			<View style={styles.cartInfo}>
-				<Text style={styles.text}>Total: 0$</Text>
+				<Text style={styles.text}>{`Total: ${CTX.sessionStore.cartTotalPrice || 0}$`}</Text>
 				<TouchableOpacity style={styles.button} onPress={closeCart}>
 					<Text style={{color: '#fff',fontWeight: '600',}}>BUYBUYBUY</Text>
 				</TouchableOpacity>
 			</View>
 		</Animated.View>
 	);
-};
+});
+export default ShoppingCart;
 const styles = StyleSheet.create({
 	cartItems: {
 		height: '70%',

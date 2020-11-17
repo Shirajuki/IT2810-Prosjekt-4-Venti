@@ -1,6 +1,6 @@
 import React, { FC, useContext, useState, useEffect } from "react";
 import { StatusBar } from 'expo-status-bar';
-import { Dimensions, TouchableOpacity, Image, StyleSheet, Text, TextInput, View, ScrollView } from 'react-native';
+import { Alert, AsyncStorage, Dimensions, TouchableOpacity, Image, StyleSheet, Text, TextInput, View, ScrollView } from 'react-native';
 import Constants from 'expo-constants';
 import ProductCarousel from './src/components/Carousel';
 import ShoppingCart from './src/components/ShoppingCart';
@@ -9,7 +9,6 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import ItemDisplay from "./src/components/ItemDisplay";
 import Product from "./src/models/product";
 import { observer } from "mobx-react-lite";
-import Cookies from "js-cookie";
 import { RootStoreContext } from "./src/stores/root-store";
 import RootStore from "./src/stores/root-store";
 import Modal from "./src/components/Modal";
@@ -86,15 +85,31 @@ const App: FC = observer(() => {
 	useEffect(() => {
 		CTX.fetchStore.setPageCount(Math.ceil(CTX.fetchStore.productsCount / CTX.fetchStore.pageSize))
 	}, [CTX.fetchStore.productsCount, CTX.fetchStore.pageSize])
-	
- 	useEffect(() => {
- 	   const cart = CTX.sessionStore.getCart;
-		let cookie = Cookies.get("connect.sid")||"none";
-		if (cookie !== "none") cookie = cookie.split(".")[0].substring(2);
-		CTX.sessionStore.setCart(""+cart);
-		CTX.sessionStore.setSession(cookie);
-		CTX.reviewStore.setSession(cookie);
+
+    const retrieveData = async () => {
+      try {
+        const value = await AsyncStorage.getItem('cart');
+        if (value !== null && CTX.sessionStore.cart === "[]") {
+            CTX.sessionStore.setCart(value);
+        } else {
+            await AsyncStorage.setItem('cart', '[]');
+        }
+      } catch (error) {
+          //
+      }
+    };
+
+    // AsyncStorage for localstorage storing cart	
+    useEffect(() => {
+        retrieveData();
+		CTX.reviewStore.setSession("react-native");
+        retrieveData();
+		CTX.sessionStore.setSession("react-native");
 	 }, [])
+
+    useEffect(() => {
+        CTX.sessionStore.getCart();
+    }, [visible]);
 
 	return (
 		<View style={styles.container}>

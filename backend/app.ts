@@ -41,12 +41,12 @@ const sess = {
 }
 app.use(session(sess))
  
-// app.use(cors({credentials: true, origin: "http://localhost:19006"}))
-app.use(cors());
+app.use(cors({credentials: true, origin: "http://localhost:19006"}))
+//app.use(cors());
 app.use(express.urlencoded({ extended: false }));
 
 // Serves the server on port 8080 as default port
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 3000;
 app.use("/", adminRoute);
 
 mongoose.connect(url, {
