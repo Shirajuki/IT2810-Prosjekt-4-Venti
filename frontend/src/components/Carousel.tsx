@@ -2,8 +2,6 @@ import React, { useState, useCallback, useEffect, useRef, useContext } from "rea
 import { Alert, FlatList, Dimensions, Image, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import Constants from 'expo-constants';
 import Product from "../models/product";
-import { observer } from "mobx-react-lite";
-import { RootStoreContext } from "../stores/root-store";
 
 
 const { width: windowWidth, height: windowHeight } = Dimensions.get("window");
@@ -35,14 +33,14 @@ const Carousel = observer(() => {
         //CTX.fetchStore.getAPI("name_asc", "");
     },[]);
 	return (
-		<FlatList data={CTX.fetchStore.products} style={styles.container} contentContainerStyle={{alignItems: 'center', justifyContent: 'center' }}
+		<FlatList data={products} style={styles.container} contentContainerStyle={{alignItems: 'center', justifyContent: 'center' }}
 			renderItem={({ item }) => {
 				return(<Slide id={item.id} image={item.image_link} title={item.name} subtitle={item.description} product={item} />);
 			}}
 			pagingEnabled horizontal showsHorizontalScrollIndicator
 		/>
 	);
-});
+};
 export default Carousel;
 export const MemoizedCarousel = React.memo(Carousel);
 const styles = StyleSheet.create({

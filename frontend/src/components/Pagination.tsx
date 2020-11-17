@@ -24,6 +24,9 @@ const styles = StyleSheet.create({
     wrapper: {
         display: "flex",
         flexDirection: "row",
+        alignContent:"center",
+        justifyContent:"center",
+        padding: 5
     },
     pages: {
         backgroundColor: "#FFFF",
@@ -35,6 +38,9 @@ const styles = StyleSheet.create({
         padding: 10,
     },
     text: {
-        color: "#483D8B"
+        color: "#483D8B",
+        alignContent:"center",
+        justifyContent:"center",
+        padding: 5
     },
 });
