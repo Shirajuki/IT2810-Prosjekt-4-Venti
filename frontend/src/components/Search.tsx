@@ -411,7 +411,7 @@ const Search = observer((props: IProps) => {
 			</View>
 			<FlatList style={styles.searchItems} data={CTX.fetchStore.products}
 				renderItem={({item}) => {
-					return(<Items type={'search'} key={"" + item.id + ""} id={item.id} img={item.image_link} name={item.name} description={item.description} brand={item.brand} price={item.price} type="" onClick={() => props.setModal(item.id, item) } />);
+					return(<Items type={'search'} key={"" + item.id + ""} id={item.id} img={item.image_link} name={item.name} description={item.description} brand={item.brand} price={item.price} onClick={() => props.setModal(item.id, item) } />);
 				}}
 			/>
 		</View>
