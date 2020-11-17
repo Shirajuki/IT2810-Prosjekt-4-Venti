@@ -14,7 +14,6 @@ interface IProps {
 	//onClick: () => void;
 }
 function Slide(props: IProps) {
-	// console.log(props.image);
 	return (
 		<TouchableOpacity onPress={() => console.log("TRYKKET")} style={styles.slide}>
 			<Image source={{ uri: ""+props.image+""}} style={styles.image}/>
@@ -26,7 +25,6 @@ function Slide(props: IProps) {
 
 const Carousel = () => {
 	const [products, setProducts] = useState<Product[]>([]);
-	//console.log(CTX.fetchStore.products)
 	useEffect(() => {
 		const getAPI = async () => {
 			const response = await fetch('http://it2810-07.idi.ntnu.no:3000');

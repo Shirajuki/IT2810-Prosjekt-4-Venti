@@ -11,7 +11,6 @@ interface IProps {
 
 const ItemDisplay = (props: IProps) => {
 	const CTX = useContext(RootStoreContext);
-	//console.log(CTX.fetchStore.products)
 	
 
 	return (
