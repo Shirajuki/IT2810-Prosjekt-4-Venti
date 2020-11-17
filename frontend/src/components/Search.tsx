@@ -66,7 +66,7 @@ const Search = observer((props: IProps) => {
 			<View style={styles.searchTitle}>
 				<View style={styles.searchBar}>
 					<TouchableOpacity onPress={closeSearch}>
-						<Icon name="arrow-forward" size={28} color={colors.darkestColor} style={styles.searchExit}/>
+						<Icon name="arrow-forward" size={28} color={colors.darkestColor}/>
 					</TouchableOpacity>
 					<View style={styles.inputBox}>
 						<TouchableOpacity onPress={closeSearch}>
@@ -90,8 +90,7 @@ const Search = observer((props: IProps) => {
 export default Search;
 
 const styles = StyleSheet.create({
-	searchExit: {
-	},
+	
 	searchBar: {
 		padding: 16,
 		flexDirection: "row",
