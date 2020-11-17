@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect, useRef } from "react";
-import { Animated, TouchableOpacity, Alert, FlatList, ScrollView, Dimensions, Image, Button, StyleSheet, Text, View } from 'react-native';
+import { Animated, TouchableOpacity, Alert, FlatList, ScrollView, Dimensions, StyleSheet, Text, View } from 'react-native';
 import Constants from 'expo-constants';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 

@@ -28,6 +28,7 @@ function Slide(props: IProps) {
 }
 
 export default function Carousel() {
+	
 	return (
 		<FlatList data={slideList} style={styles.container} contentContainerStyle={{alignItems: 'center', justifyContent: 'center' }}
 			renderItem={({ item }) => {

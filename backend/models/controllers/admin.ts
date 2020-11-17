@@ -69,7 +69,7 @@ const getGetCart = async (req: Request, res: Response) => {
 	// Sends an array of productIds and their total values, and an array of the products
 	let final: any[] = ['[]'];
 	if (session.length > 0) {
-		console.log("Session",req.sessionID, "connected!");
+		//console.log("Session",req.sessionID, "connected!");
 		// If it's a new session, we initialize an empty cart
 		if (!session[0]._doc?.cart) {
 			await Session.updateOne(

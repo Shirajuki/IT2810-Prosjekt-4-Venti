@@ -5,8 +5,15 @@
     "lib": ["dom", "esnext"],
     "moduleResolution": "node",
     "noEmit": true,
+    "strictNullChecks": false,
     "skipLibCheck": true,
     "resolveJsonModule": true,
-    "strict": true
-  }
+    "strict": true,
+    "target": "es5",  // <-- here!
+    "module": "commonjs",
+    "sourceMap": true
+  },
+  "include": [
+    "*.tsx"
+  ],
 }
