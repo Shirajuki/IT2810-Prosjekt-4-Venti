@@ -73,17 +73,6 @@ const Items = observer((props: IProps) => {
 			<TouchableOpacity onPress={() => props.onClick}>
 				<View >
 					<Image source={{uri: props.img}} style={{resizeMode: "contain",width: 400, height: 400}}/>
-					{Number(stars)*2 === 0 ? starElements[Number(stars)*2] : null}
-					{Number(stars)*2 === 1 ? starElements[Number(stars)*2] : null}
-					{Number(stars)*2 === 2 ? starElements[Number(stars)*2] : null}
-					{Number(stars)*2 === 3 ? starElements[Number(stars)*2] : null}
-					{Number(stars)*2 === 4 ? starElements[Number(stars)*2] : null}
-					{Number(stars)*2 === 5 ? starElements[Number(stars)*2] : null}
-					{Number(stars)*2 === 6 ? starElements[Number(stars)*2] : null}
-					{Number(stars)*2 === 7 ? starElements[Number(stars)*2] : null}
-					{Number(stars)*2 === 8 ? starElements[Number(stars)*2] : null}
-					{Number(stars)*2 === 9 ? starElements[Number(stars)*2] : null}
-					{Number(stars)*2 === 10 ? starElements[Number(stars)*2] : null}
 				</View>
 				<Text >{props.name}</Text>
 				<Text >{props.price}</Text>
@@ -92,37 +81,18 @@ const Items = observer((props: IProps) => {
 		);
 		case "modal":
 		return (
-			<TouchableOpacity  onPress={() => props.onClick}>
-				<View >
-					<Image  source={{uri: ""+props.img+""}} style={{resizeMode: "contain", width: 400, height: 400}}/>
+			<View >
+				<View style={{width: '100%', backgroundColor: colors.darkColor, height: 400, justifyContent: 'center', alignContent: 'center'}}>
+					<Image source={{uri: ""+props.img+""}} style={{resizeMode: "contain", flex: 1,}}/>
 				</View>
-				<View >
-					<Text >{props.name}</Text>
-					<Text >{props.price}</Text>
-					{Number(stars)*2 === 0 ? starElements[Number(stars)*2] : null}
-					{Number(stars)*2 === 1 ? starElements[Number(stars)*2] : null}
-					{Number(stars)*2 === 2 ? starElements[Number(stars)*2] : null}
-					{Number(stars)*2 === 3 ? starElements[Number(stars)*2] : null}
-					{Number(stars)*2 === 4 ? starElements[Number(stars)*2] : null}
-					{Number(stars)*2 === 5 ? starElements[Number(stars)*2] : null}
-					{Number(stars)*2 === 6 ? starElements[Number(stars)*2] : null}
-					{Number(stars)*2 === 7 ? starElements[Number(stars)*2] : null}
-					{Number(stars)*2 === 8 ? starElements[Number(stars)*2] : null}
-					{Number(stars)*2 === 9 ? starElements[Number(stars)*2] : null}
-					{Number(stars)*2 === 10 ? starElements[Number(stars)*2] : null}
-					<TouchableOpacity  onPress={() => {
-						CTX.sessionStore.addCart(+props.id);
-						//Swal.fire(
-						//	'Added to cart!',
-						//	'The product was added to cart!',
-						//	'success');
-						}
-					}>
-						<Text>Add to cart</Text>
-					</TouchableOpacity>
+				<View style={{padding: 10, marginHorizontal: 10, marginTop: 10, backgroundColor: colors.lightColor, borderRadius: 10}}>
+					<Text style={{fontSize: 20, color: colors.darkestColor}}>{props.name}</Text>
+					<Text style={{fontSize: 18, color: colors.darkColor }}>{props.price}</Text>
+				</View>
+				<View style={{padding: 10, margin: 10, backgroundColor: colors.lightColor, borderRadius: 10}}>
 					<Text >{props.description}</Text>
-				</View>
-			</TouchableOpacity>
+                </View>
+            </View>
 		);
 		case "cart":
 		return (
