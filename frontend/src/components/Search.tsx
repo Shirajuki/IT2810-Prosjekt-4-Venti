@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
-import {CheckBox, Animated, TextInput, TouchableOpacity, FlatList, ScrollView, Dimensions, Image, StyleSheet, Text, View } from 'react-native';
+import {CheckBox, Picker, Animated, TextInput, TouchableOpacity, FlatList, ScrollView, Dimensions, Image, StyleSheet, Text, View } from 'react-native';
 import Constants from 'expo-constants';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import ItemDisplay from "./ItemDisplay";
@@ -64,27 +64,32 @@ const Checkbox1 = (props: IProps3) => {
 	return (
 		<View style={styles.checkbox}>
 			<TouchableOpacity style={{width: '100%', flexDirection: 'row', alignItems: 'center',}} onPress={() => setToggleCheckBox(!toggleCheckBox)}>
-				<CheckBox style={{marginHorizontal: 5}} disabled={false} value={toggleCheckBox} onChange={() => setToggleCheckBox(!toggleCheckBox)}/>
+				<CheckBox style={{marginHorizontal: 5}} disabled={false} value={toggleCheckBox} onChange={() => {setToggleCheckBox(!toggleCheckBox)}}/>
 				<Text style={{ fontSize: 18 }}>{props.name}</Text>
 			</TouchableOpacity>
 		</View>
 	);
 }
 const Radio = (props: IRadio) => {
+	const CTX = useContext(RootStoreContext);
 	const [toggleRadio, setToggleRadio] = useState(false);
+	const [selectedValue, setSelectedValue] = useState("name_asc") 
 	const toggle = () => {
 		setToggleRadio(!toggleRadio);
 		if (!toggleRadio) {
 			props.setOrderByValue(props.value);
+			CTX.fetchStore.setOrderTerm(props.value);
 		} else {
 			props.setOrderByValue('name_asc');
 		}
 	}
+	
 	useEffect(() => {
 		if (props.value != props.orderByValue) {
 			setToggleRadio(false);
 		} else {
 			setToggleRadio(true);
+			
 		}
 	}, [props.orderByValue])
 	const styles = StyleSheet.create({
@@ -122,6 +127,7 @@ const DropDown = (props: IProps4) => {
 	const closeWindow = () => props.setOrderByVisible(false);
 	const anim = useRef(new Animated.Value(-(windowHeight)/3)).current;
 	const [orderByValue, setOrderByValue] = useState("name_asc");
+	const sortRef = useRef(null);
 	useEffect(() => {
 		Animated.timing(anim,{
 			toValue: props.orderByVisible ? 0 : -(windowHeight)/3,
@@ -417,8 +423,7 @@ const Search = observer((props: IProps) => {
 	const searchRef = useRef(null);
 	//console.log(searchRef.current.text);
 	const sortRef = useRef(null);
-	const anim = useRef(new Animated.Value(windowWidth)).current;
-	const [searchTerm, setSearchTerm] = useState(""); 
+	const anim = useRef(new Animated.Value(windowWidth)).current; 
 	//console.log(CTX,CTX.fetchStore.products)
 	useEffect(() => {
 		Animated.timing(anim,{
@@ -461,7 +466,7 @@ const Search = observer((props: IProps) => {
 						<TouchableOpacity onPress={closeSearch}>
 							<Icon style={styles.inputIcon} name="search" size={20} color="#fff" />
 						</TouchableOpacity>
-						<TextInput style={styles.input} editable placeholder={"search.."} ref={searchRef} value={searchTerm} onChange={(e) => setSearchTerm(e.nativeEvent.text)} onSubmitEditing={(e) => { CTX.fetchStore.search(sortRef?.current?.value, searchTerm)}} />
+						<TextInput style={styles.input} editable placeholder={"search.."} onSubmitEditing={(e) => { CTX.fetchStore.setSearchTerm(e.nativeEvent.text)}} />
 					</View>
 				</View>
 				<Filter orderByVisible={orderByVisible} setOrderByVisible={setOrderByVisible} filterVisible={filterVisible} setFilterVisible={setFilterVisible}/>
