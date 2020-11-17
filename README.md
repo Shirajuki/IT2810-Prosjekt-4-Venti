@@ -24,6 +24,9 @@ This project was developed using React Native and Expo as a framework. Expo is a
 
 ### Third party components
 
+- Icon from MaterialIcons
+-
+
 ### Reusing old code
 
 Since there was such a tight deadline on this project, the most important thing we did was reuse as much of the old code as possible. The backend is almost entirely the same, with some adjustments. The frontend on the other hand had to be changed somewhat. React Native does not use components like `div` or `p` so this had to be replaced with what is valid in React Native. Styling the application was also a bit different than in react, but most of the old code could be reused. We continued to use Mobx as we felt like this was a great make to manage states.
