@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
-import {Animated, TextInput, TouchableOpacity, FlatList, ScrollView, Dimensions, Image, StyleSheet, Text, View } from 'react-native';
+import {CheckBox, Animated, TextInput, TouchableOpacity, FlatList, ScrollView, Dimensions, Image, StyleSheet, Text, View } from 'react-native';
 import Constants from 'expo-constants';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import ItemDisplay from "./ItemDisplay";
 import Items from "./Items";
-import CheckBox from '@react-native-community/checkbox';
+//import CheckBox from '@react-native-community/checkbox';
 import { observer } from "mobx-react-lite";
 import { RootStoreContext } from "../stores/root-store";
 import Product from "../models/product";
@@ -50,7 +50,7 @@ interface IRadio {
 	orderByValue: string;
 	setOrderByValue: (val: string) => void;
 }
-const Checkbox = (props: IProps3) => {
+const Checkbox1 = (props: IProps3) => {
 	const [toggleCheckBox, setToggleCheckBox] = useState(false);
 	// props.value;
 	const styles = StyleSheet.create({
@@ -282,13 +282,13 @@ const FilterWindow = (props: IFilterWindow) => {
 					{ /* FlatList change to View, use map */}
 					<FlatList data={types()} style={styles.list}
 						renderItem={({ item }) => {
-							return <Checkbox name={item[0]} value={item[1]}/>;
+							return <Checkbox1 name={item[0]} value={item[1]}/>;
 						}}
 					/>
 					<Text style={styles.filterTitle}>Brands</Text>
 					<FlatList data={brands()} style={styles.list}
 						renderItem={({ item }) => {
-							return <Checkbox name={item[0]} value={item[1]}/>;
+							return <Checkbox1 name={item[0]} value={item[1]}/>;
 						}}
 					/>
 				</ScrollView>

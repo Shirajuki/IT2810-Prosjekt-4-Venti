@@ -119,12 +119,11 @@ const App: FC = observer(() => {
 				</View>
 				<Pagination />
 				<ItemDisplay setModal={itemModal} itemList={CTX.fetchStore.products} />
-			</ScrollView>
-			<View style={{ height: 100, width: '100%', alignItems: 'center', backgroundColor: colors.themeColor }}>
-				<View style={{ width: '90%', borderRadius: 10, padding: 10, marginHorizontal: 'auto' }}>
-					<Text style={styles.splashText3}>Team7</Text>
+				<Pagination/>
+				<View style={{ height: 100, width: '100%', alignItems: 'center', backgroundColor: colors.themeColor, marginTop:10 }}>
+					<Text style={styles.splashText3}>Team 7</Text>
 				</View>
-			</View>
+			</ScrollView>
 			{/*<Modal modal={modal} setModal={itemModal}/>*/}
 			<ShoppingCart visible={visible} setVisible={setVisible} />
 			<Search setModal={itemModal} searched={searched} setSearched={setSearched} />

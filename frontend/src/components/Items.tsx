@@ -73,17 +73,6 @@ const Items = observer((props: IProps) => {
 			<TouchableOpacity onPress={() => props.onClick}>
 				<View >
 					<Image source={{uri: props.img}} style={{resizeMode: "contain",width: 400, height: 400}}/>
-					{Number(stars)*2 === 0 ? starElements[Number(stars)*2] : null}
-					{Number(stars)*2 === 1 ? starElements[Number(stars)*2] : null}
-					{Number(stars)*2 === 2 ? starElements[Number(stars)*2] : null}
-					{Number(stars)*2 === 3 ? starElements[Number(stars)*2] : null}
-					{Number(stars)*2 === 4 ? starElements[Number(stars)*2] : null}
-					{Number(stars)*2 === 5 ? starElements[Number(stars)*2] : null}
-					{Number(stars)*2 === 6 ? starElements[Number(stars)*2] : null}
-					{Number(stars)*2 === 7 ? starElements[Number(stars)*2] : null}
-					{Number(stars)*2 === 8 ? starElements[Number(stars)*2] : null}
-					{Number(stars)*2 === 9 ? starElements[Number(stars)*2] : null}
-					{Number(stars)*2 === 10 ? starElements[Number(stars)*2] : null}
 				</View>
 				<Text >{props.name}</Text>
 				<Text >{props.price}</Text>
@@ -99,17 +88,6 @@ const Items = observer((props: IProps) => {
 				<View >
 					<Text >{props.name}</Text>
 					<Text >{props.price}</Text>
-					{Number(stars)*2 === 0 ? starElements[Number(stars)*2] : null}
-					{Number(stars)*2 === 1 ? starElements[Number(stars)*2] : null}
-					{Number(stars)*2 === 2 ? starElements[Number(stars)*2] : null}
-					{Number(stars)*2 === 3 ? starElements[Number(stars)*2] : null}
-					{Number(stars)*2 === 4 ? starElements[Number(stars)*2] : null}
-					{Number(stars)*2 === 5 ? starElements[Number(stars)*2] : null}
-					{Number(stars)*2 === 6 ? starElements[Number(stars)*2] : null}
-					{Number(stars)*2 === 7 ? starElements[Number(stars)*2] : null}
-					{Number(stars)*2 === 8 ? starElements[Number(stars)*2] : null}
-					{Number(stars)*2 === 9 ? starElements[Number(stars)*2] : null}
-					{Number(stars)*2 === 10 ? starElements[Number(stars)*2] : null}
 					<TouchableOpacity  onPress={() => {
 						CTX.sessionStore.addCart(+props.id);
 						//Swal.fire(
@@ -159,7 +137,6 @@ const Items = observer((props: IProps) => {
 						<View>
 							<Text numberOfLines={2} style={styles.itemName}>{props.name}</Text>
 							<View>
-								{/*<StarRating size={5} initialRating={stars} isReadOnly={true} isHalfRating={true}/>*/}
 							</View>
 							<Text style={styles.itemPrice}>{props.price}$</Text>
 						</View>
@@ -169,15 +146,13 @@ const Items = observer((props: IProps) => {
 		);
 		default:
 		return (
-			<TouchableOpacity onPress={props.onClick}>
+			<TouchableOpacity onPress={props.onClick} style={{marginTop: 15, marginBottom: 15, backgroundColor:'#e0cff2', borderColor:'#a995bd', borderWidth:1, padding:5}}>
 				<View>
-					<Image source={{uri: ""+props.img+""}}  style={{resizeMode: "contain", width: 400, height: 400}}/>
-					{/*<StarRating size={15} initialRating={stars} isReadOnly={true} isHalfRating={true}/>*/}
+					<Image source={{uri: ""+props.img+""}}  style={{resizeMode: "stretch", width: 300, height: 300}}/>
 				</View>
-				<Text >{props.name}</Text>
-				<Text >{props.description}</Text>
-				<View>
-					<Text >{props.price}</Text>
+				<View style={{alignItems:'center', paddingTop:10}}>
+					<Text style={{fontWeight: '700'}} >{props.name}</Text>
+					<Text >${props.price}</Text>
 				</View>
 			</TouchableOpacity>
 		);
@@ -185,3 +160,5 @@ const Items = observer((props: IProps) => {
 })
 
 export default Items;
+
+
