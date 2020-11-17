@@ -1,10 +1,10 @@
-import React, { useState, useCallback, useEffect, useRef, useContext } from "react";
-import {CheckBox, Animated, TextInput, TouchableOpacity, Alert, FlatList, ScrollView, Dimensions, Image, Button, StyleSheet, Text, View } from 'react-native';
+import React, { useState, useEffect, useRef, useContext } from "react";
+import {Animated, TextInput, TouchableOpacity, FlatList, ScrollView, Dimensions, Image, StyleSheet, Text, View } from 'react-native';
 import Constants from 'expo-constants';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import ItemDisplay from "./ItemDisplay";
 import Items from "./Items";
-//import CheckBox from '@react-native-community/checkbox';
+import CheckBox from '@react-native-community/checkbox';
 import { observer } from "mobx-react-lite";
 import { RootStoreContext } from "../stores/root-store";
 import Product from "../models/product";
@@ -465,8 +465,7 @@ const Search = observer((props: IProps) => {
 			</View>
 			<FlatList style={styles.searchItems} data={CTX.fetchStore.products}
 				renderItem={({item}) => {
-					console.log(typeof(item.id + ""));
-					return(<Items key={item.id + ""} id={item.id} img={item.image_link} name={item.name} description={item.description} rating={item.rating} price={item.price} type="" onClick={() => props.setModal(item.id, item) } />);
+					return(<Items key={"" + item.id + ""} id={item.id} img={item.image_link} name={item.name} description={item.description} rating={item.rating} price={item.price} type="" onClick={() => props.setModal(item.id, item) } />);
 				}}
 			/>
 		</View>

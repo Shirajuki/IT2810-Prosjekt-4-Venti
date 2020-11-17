@@ -1,10 +1,10 @@
 import React, { ReactNode, useContext } from "react";
 import { FlatList, Dimensions, Image, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
-import StarRating from 'react-svg-star-rating'
+//import StarRating from 'react-svg-star-rating'
 import { ImBin } from "react-icons/im";
 import { RootStoreContext } from "../stores/root-store";
 import { observer, useAsObservableSource } from "mobx-react-lite"
-import Swal from 'sweetalert2'
+//import Swal from 'sweetalert2'
 
 //Declares type of title
 interface IProps {
@@ -18,9 +18,9 @@ interface IProps {
 	type: string;
 }
 const starElements: ReactNode[] = []
-for (let i = 0; i <= 5; i+= 0.5) {
-	starElements.push(<StarRating size={20} initialRating={i} isReadOnly={true} isHalfRating={true}/>)
-}
+//for (let i = 0; i <= 5; i+= 0.5) {
+//	starElements.push(<StarRating size={20} initialRating={i} isReadOnly={true} isHalfRating={true}/>)
+//}
 const Items = observer((props: IProps) => {
 	const CTX = useContext(RootStoreContext);
 	const product = useAsObservableSource(props);
@@ -112,10 +112,10 @@ const Items = observer((props: IProps) => {
 					{Number(stars)*2 === 10 ? starElements[Number(stars)*2] : null}
 					<TouchableOpacity  onPress={() => {
 						CTX.sessionStore.addCart(+props.id);
-						Swal.fire(
-							'Added to cart!',
-							'The product was added to cart!',
-							'success');
+						//Swal.fire(
+						//	'Added to cart!',
+						//	'The product was added to cart!',
+						//	'success');
 						}
 					}>
 						<Text>Add to cart</Text>
@@ -159,7 +159,7 @@ const Items = observer((props: IProps) => {
 						<View>
 							<Text numberOfLines={2} style={styles.itemName}>{props.name}</Text>
 							<View>
-								<StarRating size={5} initialRating={stars} isReadOnly={true} isHalfRating={true}/>
+								{/*<StarRating size={5} initialRating={stars} isReadOnly={true} isHalfRating={true}/>*/}
 							</View>
 							<Text style={styles.itemPrice}>{props.price}$</Text>
 						</View>
@@ -172,7 +172,7 @@ const Items = observer((props: IProps) => {
 			<TouchableOpacity onPress={props.onClick}>
 				<View>
 					<Image source={{uri: ""+props.img+""}}  style={{resizeMode: "contain", width: 400, height: 400}}/>
-					<StarRating size={15} initialRating={stars} isReadOnly={true} isHalfRating={true}/>
+					{/*<StarRating size={15} initialRating={stars} isReadOnly={true} isHalfRating={true}/>*/}
 				</View>
 				<Text >{props.name}</Text>
 				<Text >{props.description}</Text>

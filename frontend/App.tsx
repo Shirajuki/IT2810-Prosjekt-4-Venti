@@ -181,7 +181,7 @@ const styles = StyleSheet.create({
 		],
 	},
 	scrollView: {
-		backgroundColor: 'pink',
+		backgroundColor: '#d4bbed',
 		flex: 1,
 	},
 	container: {
