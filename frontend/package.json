@@ -24,6 +24,7 @@
     "react-icons": "^3.11.0",
     "react-native": "0.63.3",
     "react-native-animated-pagination-dot": "^0.1.8",
+    "react-native-cookies": "^3.3.0",
     "react-native-elements": "^3.0.0-alpha.1",
     "react-native-pagination": "^1.5.5",
     "react-native-platform-searchbar": "^1.0.2",

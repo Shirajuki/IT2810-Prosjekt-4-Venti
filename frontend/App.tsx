@@ -82,7 +82,6 @@ const App: FC = observer(() => {
 	useEffect(() => {
 		CTX.fetchStore.setPageCount(Math.ceil(CTX.fetchStore.productsCount / CTX.fetchStore.pageSize))
 	}, [CTX.fetchStore.productsCount, CTX.fetchStore.pageSize])
-
 	
  	useEffect(() => {
  	   const cart = CTX.sessionStore.getCart;

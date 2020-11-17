@@ -26,7 +26,6 @@ interface IRadio {
 const Radio = (props: IRadio) => {
 	const CTX = useContext(RootStoreContext);
 	const [toggleRadio, setToggleRadio] = useState(false);
-	const [selectedValue, setSelectedValue] = useState("name_asc") 
 	const toggle = () => {
 		setToggleRadio(!toggleRadio);
 		if (!toggleRadio) {
