@@ -1,10 +1,8 @@
 import React, { ReactNode, useContext } from "react";
-import { FlatList, Dimensions, Image, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
-//import StarRating from 'react-svg-star-rating'
-import { ImBin } from "react-icons/im";
+import { Alert, FlatList, Dimensions, Image, StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { RootStoreContext } from "../stores/root-store";
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import { observer, useAsObservableSource } from "mobx-react-lite"
-//import Swal from 'sweetalert2'
 
 //Declares type of title
 interface IProps {
@@ -17,10 +15,6 @@ interface IProps {
 	price: string;
 	type: string;
 }
-const starElements: ReactNode[] = []
-//for (let i = 0; i <= 5; i+= 0.5) {
-//	starElements.push(<StarRating size={20} initialRating={i} isReadOnly={true} isHalfRating={true}/>)
-//}
 const Items = observer((props: IProps) => {
 	const CTX = useContext(RootStoreContext);
 	const product = useAsObservableSource(props);
@@ -66,6 +60,19 @@ const Items = observer((props: IProps) => {
 			fontWeight: '600',
 			color: colors.darkestColor,
 		},
+        itemAdd: {
+            padding: 5,
+            margin: 5,
+            width: 30,
+            height: 30,
+            justifyContent: 'center',
+            alignItems: 'center',
+            backgroundColor: 'rgba(0,0,0,.1)',
+        },
+        itemCount: {
+            padding: 5,
+            margin: 5,
+        },
 	});	
 	switch (props.type) {
 		case "carousel":
@@ -96,26 +103,29 @@ const Items = observer((props: IProps) => {
 		);
 		case "cart":
 		return (
-			<View >
-				<View >
-					<Image source={{uri: ""+props.img+""}} style={{resizeMode: "contain", width: 400, height: 400}}/>
+            <View style={styles.itemDisplay}>
+				<View style={styles.imgWrapper}>
+					<Image source={{uri: ""+props.img+""}} style={styles.img}/>
 				</View>
-				<View>
-					<Text >{props.name}</Text>
-					<View >
-						<TouchableOpacity  onPress={() => CTX.sessionStore.editCart(Number(props.id), false)}>
-							<Text>-</Text>
-						</TouchableOpacity>
-						<Text>{CTX.sessionStore.productCount(Number(props.id))}</Text>
-						<TouchableOpacity  onPress={() => CTX.sessionStore.editCart(Number(props.id), true)}>
-							<Text>+</Text>
-						</TouchableOpacity>
+				<View style={styles.itemInfo}>
+					<Text numberOfLines={2} style={styles.itemName}>{props.name}</Text>
+                    <Text style={styles.itemPrice}>{`${props.price}$`}</Text>
+					<View style={{flexDirection: 'row'}}>
+                        <TouchableOpacity style={styles.itemAdd} onPress={() => CTX.sessionStore.editCart(Number(props.id), false)}>
+                            <Text>-</Text>
+                        </TouchableOpacity>
+                        <Text style={styles.itemCount}>{CTX.sessionStore.productCount(Number(props.id))}</Text>
+                        <TouchableOpacity style={styles.itemAdd} onPress={() => CTX.sessionStore.editCart(Number(props.id), true)}>
+                            <Text>+</Text>
+                        </TouchableOpacity>
 					</View>
 				</View>
-				<View>
-					<ImBin data-cy="remove-button" onClick={() => CTX.sessionStore.removeCart(Number(props.id))}/>
-					<Text >{props.price}</Text>
-				</View>
+                <TouchableOpacity style={{position: 'absolute', bottom: 0, right: 0,}} onPress={() => {
+                    CTX.sessionStore.deleteCart(Number(props.id));
+                    Alert.alert("Deleted product from cart!");
+                }}>
+                     <Icon size={28} color={colors.darkestColor} name="delete" />
+                </TouchableOpacity>
 			</View>
 		);
 		case "normal":

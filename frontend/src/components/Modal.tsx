@@ -21,19 +21,21 @@ interface IProps {
 }
 const Modal = observer((props: IProps) => {
     const CTX = useContext(RootStoreContext);
-    // props.modal.product = CTX.fetchStore.products[0]; // Debug
     const product = useAsObservableSource(props.modal.product);
 	const messageRef = useRef(null);
 	const nameRef = useRef(null);
-	const [stars, setStars] = useState(Number);
 	const [rating, setRating] = useState(0);
     const closeModal = () => {
         props.setModal('none', null);
         // Alert.alert(String(props.modal.product));
     }
     const post = async () => {
-		await CTX.reviewStore.postReviews(props.modal.id, messageRef?.current?.value,  nameRef?.current?.value, stars);
+		await CTX.reviewStore.postReviews(props.modal.id, messageRef?.current?.value,  nameRef?.current?.value, 5);
 	}
+    const addToCart = (id: string) => {
+        Alert.alert("Added item to cart!");
+        CTX.sessionStore.addCart(Number(id));
+    }
     const anim = useRef(new Animated.Value(windowWidth)).current;
     useEffect(() => {
 		if (props.modal.id !== "none") CTX.reviewStore.getReviews(props.modal.id);
@@ -118,7 +120,7 @@ const Modal = observer((props: IProps) => {
                 </View>
             </ScrollView>
             <View style={{height: '10%', marginBottom: Constants.statusBarHeight}}>
-                <TouchableOpacity style={styles.closeButton} data-cy="close-button" onPress={() => Alert.alert("Added to cart!")}>
+                <TouchableOpacity style={styles.closeButton} data-cy="close-button" onPress={() => addToCart(props.modal.product?.id)}>
                     <View style={{flexDirection: 'row', height: '100%', backgroundColor: colors.themeColor, alignItems: 'center', justifyContent: 'center'}}>
                        <Icon name="shopping-cart" size={28} color={colors.lightColor} style={styles.searchExit}/>
                        <Text style={{fontWeight: '900', fontSize: 18, padding: 5, color: colors.lightColor}}>Add to Cart</Text>

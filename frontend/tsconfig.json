@@ -9,7 +9,7 @@
     "skipLibCheck": true,
     "resolveJsonModule": true,
     "strict": false,
-    "target": "es5",  // <-- here!
+    "target": "esnext",  // <-- here!
     "module": "commonjs",
     "sourceMap": true
   },
