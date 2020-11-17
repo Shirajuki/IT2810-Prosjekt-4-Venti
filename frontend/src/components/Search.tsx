@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef, useContext } from "react";
 import {CheckBox, Animated, TextInput, TouchableOpacity, FlatList, ScrollView, Dimensions, Image, StyleSheet, Text, View } from 'react-native';
 import Constants from 'expo-constants';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import ItemDisplay from "./ItemDisplay";
 import Items from "./Items";
 // import CheckBox from '@react-native-community/checkbox';
 import { observer } from "mobx-react-lite";
@@ -355,60 +354,7 @@ const Filter = (props: IProps2) => {
 		</View>
 	);
 }
-const Item = () => {
-	const styles = StyleSheet.create({
-		img: {
-			width: '100%',
-			height: '100%',
-			backgroundColor: 'lightblue',
-			borderRadius: 8,
-		},
-		imgWrapper: {
-			width: '40%',
-			height: '100%',
-			padding: 5,
-		},
-		itemDisplay: {
-			flexDirection: 'row',
-			height: 120,
-			margin: 10,
-			marginVertical: 2,
-		},
-		itemInfo: {
-			paddingTop: 5,
-			width: '60%',
-			height: '100%',
-		},
-		itemName: {
-			fontSize: 11,
-			color: '#222',
-		},
-		itemRating: {
-			color: colors.darkestColor,
-		},
-		itemPrice: {
-			fontSize: 16,
-			fontWeight: '600',
-			color: colors.darkestColor,
-		},
-	});	
-	return(
-	<View>
-		<TouchableOpacity onPress={() => console.log("ITEM")}>
-			<View style={styles.itemDisplay}>
-				<View style={styles.imgWrapper}>
-					<Image style={styles.img} source={{uri: 'https://www.nyxcosmetics.com/dw/image/v2/AANG_PRD/on/demandware.static/-/Sites-cpd-nyxusa-master-catalog/default/dw226b9283/ProductImages/2016/Lips/Lip_Of_The_Day_Liquid_Lip_Liner/lipoftheday_main.jpg?sw=390&sh=390&sm=fit'}}/>
-				</View>
-				<View style={styles.itemInfo}>
-					<Text numberOfLines={2} style={styles.itemName}>Craft-paper Origami DIY Handmade Lucky-Stars Colorful Mixed-Color-Set</Text>
-					<Text style={styles.itemRating}>*****</Text>
-					<Text style={styles.itemPrice}>420$</Text>
-				</View>
-			</View>
-		</TouchableOpacity>
-	</View>
-	);
-}
+
 const Search = observer((props: IProps) => {
 	const CTX = useContext(RootStoreContext);
 	const closeSearch = () => props.setSearched(false);
@@ -450,7 +396,7 @@ const Search = observer((props: IProps) => {
 	// Strict mode error here v
 	return (
 	<Animated.View style={{ ...containerStyle, transform: [{translateX: anim}] }}>
-		<View style={{height: '100%',}}>
+		<View style={{height: '100%'}}>
 			<DropDown orderByVisible={orderByVisible} setOrderByVisible={setOrderByVisible}/>
 			<View style={styles.searchTitle}>
 				<View style={styles.searchBar}>
@@ -468,7 +414,7 @@ const Search = observer((props: IProps) => {
 			</View>
 			<FlatList style={styles.searchItems} data={CTX.fetchStore.products}
 				renderItem={({item}) => {
-					return(<Items key={"" + item.id + ""} id={item.id} img={item.image_link} name={item.name} description={item.description} rating={item.rating} price={item.price} type="" onClick={() => props.setModal(item.id, item) } />);
+					return(<Items type={"search"} key={"" + item.id + ""} id={item.id} img={item.image_link} name={item.name} description={item.description} brand={item.brand} price={item.price} type="" onClick={() => props.setModal(item.id, item) } />);
 				}}
 			/>
 		</View>

@@ -18,7 +18,7 @@ const ItemDisplay = (props: IProps) => {
 		<View style={styles.container}>
 			<FlatList data={CTX.fetchStore.products}
 				renderItem={({item}) => {
-					return(<Items key={"" + item.id + ""} id={item.id} img={item.image_link} name={item.name} description={item.description} rating={item.rating} price={item.price} type="" onClick={() => props.setModal(item.id, item) } />);
+					return(<Items key={"" + item.id + ""} id={item.id} img={item.image_link} name={item.name} description={item.description} brand={item.brand} price={item.price} type="" onClick={() => props.setModal(item.id, item) } />);
 				}}
 			/>
 		</View>

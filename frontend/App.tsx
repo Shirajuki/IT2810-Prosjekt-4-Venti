@@ -36,14 +36,6 @@ const Splash = (props: IProps) => {
 			left: 0,
 			paddingHorizontal: 10,
 		},
-		/*inputBox: {
-			alignItems: 'center',
-			flexDirection: 'row',
-			width: '90%',
-			borderRadius: 20,
-			backgroundColor: 'rgba(0,0,0,.3)',
-			paddingHorizontal: 5,
-		},*/
 		input: {
 			width: '100%',
 			height: 40,
