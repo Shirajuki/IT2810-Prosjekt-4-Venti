@@ -198,7 +198,6 @@ const Checkbox1 = (props: IProps3) => {
     const setToggle = (bool) => {
         setToggleCheckBox(bool);
         CTX.fetchStore.addOrRemoveFilter(`${props.type}=${props.name}`);
-        Alert.alert(JSON.stringify(CTX.fetchStore.filterTerm));
     };
 	return (
 		<View style={styles.checkbox}>
